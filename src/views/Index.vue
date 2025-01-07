@@ -22,10 +22,10 @@
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Mass</TableHead>
-            <TableHead>Concentration</TableHead>
-            <TableHead>Osmolarity</TableHead>
+            <TableHead class="w-[35%]">Substrate</TableHead>
+            <TableHead class="w-[15%] text-right">Mass</TableHead>
+            <TableHead class="w-[25%] text-right">Concentration</TableHead>
+            <TableHead class="w-[25%] text-right">Osmolarity</TableHead>
             <TableHead class="w-0"></TableHead>
           </TableRow>
         </TableHeader>
@@ -33,10 +33,10 @@
           <TableRow v-for="_ in [1, 2, 3, 4]">
             <TableCell>Maltodextrin (n = 5)</TableCell>
             <TableCell>
-              <InputNumber class="w-20" :model-value="0" suffix=" g" />
+              <InputNumber class="text-right" :model-value="0" suffix=" g" />
             </TableCell>
-            <TableCell>100 g/l</TableCell>
-            <TableCell>100 mOsm/l</TableCell>
+            <TableCell class="text-right">{{ randomInt(100) }} g/l</TableCell>
+            <TableCell class="text-right">{{ randomInt(400) }} mOsm/l</TableCell>
             <TableCell>
               <Button variant="ghost" size="icon">
                 <PhTrash class="size-4" />
@@ -45,14 +45,25 @@
           </TableRow>
           <TableRow class="border-t-2 border-shade-4">
             <TableCell>Total</TableCell>
-            <TableCell>400 g</TableCell>
-            <TableCell>400 g/l</TableCell>
-            <TableCell>400 mOsm/l</TableCell>
+            <TableCell class="text-right">400 g</TableCell>
+            <TableCell class="text-right">400 g/l</TableCell>
+            <TableCell class="text-right">400 mOsm/l</TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableBody>
       </Table>
     </TableWrapper>
+
+    <div class="flex">
+      <div class="grow-[2] bg-shade-4 flex items-center justify-center p-2">66% Glucose</div>
+      <div class="grow-[1] bg-shade-6 flex items-center justify-center p-2">33% Fructose</div>
+    </div>
+
+    <div class="flex border-2 border-shade-2">
+      <div class="grow-[2] flex items-center justify-center p-2">66% Glucose</div>
+      <div class="border-r-2 border-shade-2"></div>
+      <div class="grow-[1] flex items-center justify-center p-2">33% Fructose</div>
+    </div>
 
     <h1 class="flex justify-between items-center gap-4">
       Electrolytes
@@ -64,10 +75,10 @@
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Mass</TableHead>
-            <TableHead>Concentration</TableHead>
-            <TableHead>Osmolarity</TableHead>
+            <TableHead class="w-[35%]">Substrate</TableHead>
+            <TableHead class="w-[15%] text-right">Mass</TableHead>
+            <TableHead class="w-[25%] text-right">Concentration</TableHead>
+            <TableHead class="w-[25%] text-right">Osmolarity</TableHead>
             <TableHead class="w-0"></TableHead>
           </TableRow>
         </TableHeader>
@@ -75,10 +86,10 @@
           <TableRow v-for="_ in [1, 2, 3, 4]">
             <TableCell>Sodium chloride</TableCell>
             <TableCell>
-              <InputNumber class="w-20" :model-value="0" suffix=" g" />
+              <InputNumber class="text-right" :model-value="0" suffix=" g" />
             </TableCell>
-            <TableCell>100 g/l</TableCell>
-            <TableCell>100 mOsm/l</TableCell>
+            <TableCell class="text-right">{{ randomInt(100) }} g/l</TableCell>
+            <TableCell class="text-right">{{ randomInt(400) }} mOsm/l</TableCell>
             <TableCell>
               <Button variant="ghost" size="icon">
                 <PhTrash class="size-4" />
@@ -87,19 +98,38 @@
           </TableRow>
           <TableRow class="border-t-2 border-shade-4">
             <TableCell>Total</TableCell>
-            <TableCell>400 g</TableCell>
-            <TableCell>400 g/l</TableCell>
-            <TableCell>400 mOsm/l</TableCell>
-            <TableCell></TableCell>
+            <TableCell class="text-right">400 g</TableCell>
+            <TableCell class="text-right">400 g/l</TableCell>
+            <TableCell class="text-right">400 mOsm/l</TableCell>
+            <TableCell />
           </TableRow>
         </TableBody>
       </Table>
     </TableWrapper>
 
     <h1>Osmolarity</h1>
-    <div>400 > 300 -> <span class="text-green">Slightly hypertonic</span></div>
-    <div>500 >> 300 -> <span class="text-yellow">Hypertonic</span></div>
-    <div>600 >>> 300 -> <span class="text-red">Extremely hypertonic</span></div>
+    <div class="flex">
+      <div class="flex-1 text-left">Hypotonic</div>
+      <div class="flex-1 text-center">Isotonic</div>
+      <div class="flex-1 text-right">Hypertonic</div>
+    </div>
+    <div class="flex">
+      <div class="grow-[1] shrink-0 text-center">0</div>
+      <div class="grow-[2] shrink-0 text-center">100</div>
+      <div class="grow-[2] shrink-0 text-center">200</div>
+      <div class="grow-[2] shrink-0 text-center">300</div>
+      <div class="grow-[2] shrink-0 text-center">400</div>
+      <div class="grow-[2] shrink-0 text-center">500</div>
+      <div class="grow-[1] shrink-0 text-center">∞</div>
+    </div>
+    <div class="flex">
+      <div class="flex-1 bg-red flex items-center justify-center p-2"></div>
+      <div class="flex-1 bg-yellow flex items-center justify-center p-2"></div>
+      <div class="flex-1 bg-green flex items-center justify-center p-2"></div>
+      <div class="flex-1 bg-green flex items-center justify-center p-2"></div>
+      <div class="flex-1 bg-yellow flex items-center justify-center p-2"></div>
+      <div class="flex-1 bg-red flex items-center justify-center p-2"></div>
+    </div>
   </Form>
 </template>
 
@@ -119,6 +149,7 @@ import {
   TableRow,
   TableWrapper,
 } from '@/components/ui/table';
+import { randomInt } from '@/utils/random';
 import { PhPlus, PhTrash } from '@phosphor-icons/vue';
 </script>
 
