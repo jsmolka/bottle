@@ -111,34 +111,35 @@
     <svg fill="currentColor" height="200">
       <g>
         <text x="0%" y="20" text-anchor="start">Hypotonic</text>
-        <text x="50%" y="20" text-anchor="middle">Isotonic</text>
+        <text x="50%" y="20" text-anchor="middle" class="font-semibold">200 mOsm/l</text>
         <text x="100%" y="20" text-anchor="end">Hypertonic</text>
       </g>
       <g>
-        <text x="0%" y="60" text-anchor="start">0</text>
-        <text x="16.66%" y="60" text-anchor="middle">100</text>
-        <text x="33.33%" y="60" text-anchor="middle">200</text>
-        <text x="50%" y="60" text-anchor="middle">300</text>
-        <text x="66.66%" y="60" text-anchor="middle">400</text>
-        <text x="83.33%" y="60" text-anchor="middle">500</text>
-        <text x="100%" y="60" text-anchor="end">>600</text>
+        <defs>
+          <linearGradient id="osmolarity-gradient">
+            <stop offset="0%" stop-color="rgb(var(--red))" />
+            <stop offset="13.33%" stop-color="rgb(var(--red))" />
+            <stop offset="20%" stop-color="rgb(var(--yellow))" />
+            <stop offset="30%" stop-color="rgb(var(--yellow))" />
+            <stop offset="36.66%" stop-color="rgb(var(--green))" />
+            <stop offset="63.33%" stop-color="rgb(var(--green))" />
+            <stop offset="70%" stop-color="rgb(var(--yellow))" />
+            <stop offset="80%" stop-color="rgb(var(--yellow))" />
+            <stop offset="86.66%" stop-color="rgb(var(--red))" />
+          </linearGradient>
+        </defs>
+        <rect x="0%" y="30" width="100%" height="40" fill="url(#osmolarity-gradient)" />
+        <line x1="34%" y1="30" x2="34%" y2="70" class="stroke-shade-8" stroke-width="8" />
       </g>
-      <defs>
-        <linearGradient id="osmolarity-gradient">
-          <stop offset="0%" stop-color="rgb(var(--red))" />
-          <stop offset="13.33%" stop-color="rgb(var(--red))" />
-          <stop offset="20%" stop-color="rgb(var(--yellow))" />
-          <stop offset="30%" stop-color="rgb(var(--yellow))" />
-          <stop offset="36.66%" stop-color="rgb(var(--green))" />
-          <stop offset="63.33%" stop-color="rgb(var(--green))" />
-          <stop offset="70%" stop-color="rgb(var(--yellow))" />
-          <stop offset="80%" stop-color="rgb(var(--yellow))" />
-          <stop offset="86.66%" stop-color="rgb(var(--red))" />
-        </linearGradient>
-      </defs>
-      <rect x="0%" y="90" width="100%" height="40" fill="url(#osmolarity-gradient)" />
-      <line x1="34%" y1="92" x2="34%" y2="128" class="stroke-shade-8" stroke-width="8" />
-      <text x="50%" y="170" text-anchor="middle" class="font-semibold">200 mOsm/l</text>
+      <g>
+        <text x="0%" y="90" text-anchor="start">0</text>
+        <text x="16.66%" y="90" text-anchor="middle">100</text>
+        <text x="33.33%" y="90" text-anchor="middle">200</text>
+        <text x="50%" y="90" text-anchor="middle">300</text>
+        <text x="66.66%" y="90" text-anchor="middle">400</text>
+        <text x="83.33%" y="90" text-anchor="middle">500</text>
+        <text x="100%" y="90" text-anchor="end">>600</text>
+      </g>
     </svg>
   </Form>
 </template>
