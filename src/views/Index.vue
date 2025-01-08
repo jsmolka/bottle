@@ -108,28 +108,30 @@
     </TableWrapper>
 
     <h1>Osmolarity</h1>
-    <div class="flex">
-      <div class="flex-1 text-left">Hypotonic</div>
-      <div class="flex-1 text-center">Isotonic</div>
-      <div class="flex-1 text-right">Hypertonic</div>
-    </div>
-    <div class="flex">
-      <div class="grow-[1] shrink-0 text-center">0</div>
-      <div class="grow-[2] shrink-0 text-center">100</div>
-      <div class="grow-[2] shrink-0 text-center">200</div>
-      <div class="grow-[2] shrink-0 text-center">300</div>
-      <div class="grow-[2] shrink-0 text-center">400</div>
-      <div class="grow-[2] shrink-0 text-center">500</div>
-      <div class="grow-[1] shrink-0 text-center">∞</div>
-    </div>
-    <div class="flex">
-      <div class="flex-1 bg-red flex items-center justify-center p-2"></div>
-      <div class="flex-1 bg-yellow flex items-center justify-center p-2"></div>
-      <div class="flex-1 bg-green flex items-center justify-center p-2"></div>
-      <div class="flex-1 bg-green flex items-center justify-center p-2"></div>
-      <div class="flex-1 bg-yellow flex items-center justify-center p-2"></div>
-      <div class="flex-1 bg-red flex items-center justify-center p-2"></div>
-    </div>
+    <svg>
+      <g fill="currentColor">
+        <text x="0%" y="20" text-anchor="start">Hypotonic</text>
+        <text x="50%" y="20" text-anchor="middle">Isotonic</text>
+        <text x="100%" y="20" text-anchor="end">Hypertonic</text>
+      </g>
+      <g fill="currentColor">
+        <text x="0%" y="60" text-anchor="start">0</text>
+        <text x="16.66%" y="60" text-anchor="middle">100</text>
+        <text x="33.33%" y="60" text-anchor="middle">200</text>
+        <text x="50%" y="60" text-anchor="middle">300</text>
+        <text x="66.66%" y="60" text-anchor="middle">400</text>
+        <text x="83.33%" y="60" text-anchor="middle">500</text>
+        <text x="100%" y="60" text-anchor="end">>600</text>
+      </g>
+      <g>
+        <rect x="0%" y="90" width="16.66%" height="20" class="fill-red" />
+        <rect x="16.66%" y="90" width="16.66%" height="20" class="fill-yellow" />
+        <rect x="33.33%" y="90" width="16.66%" height="20" class="fill-green" />
+        <rect x="50%" y="90" width="16.66%" height="20" class="fill-green" />
+        <rect x="66.66%" y="90" width="16.66%" height="20" class="fill-yellow" />
+        <rect x="83.33%" y="90" width="16.66%" height="20" class="fill-red" />
+      </g>
+    </svg>
   </Form>
 </template>
 
