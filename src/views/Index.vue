@@ -53,17 +53,20 @@
         </TableBody>
       </Table>
     </TableWrapper>
-    <div class="flex gap-8 mx-auto">
-      <div class="flex flex-col items-center gap-2">
-        <Glucose class="h-32 text-shade-1" />
-        <div>Glucose</div>
-        <div>100 g (50%)</div>
+    <div class="flex gap-4 mx-auto">
+      <div class="flex flex-col items-center">
+        <Glucose class="h-32" />
+        <div class="flex flex-col items-center gap-1">
+          <div class="text-shade-1 font-semibold">Glucose</div>
+          <div>100 g (50%)</div>
+        </div>
       </div>
-
-      <div class="flex flex-col items-center gap-2">
-        <Fructose class="h-32 text-shade-1" />
-        <div>Fructose</div>
-        <div>100 g (50%)</div>
+      <div class="flex flex-col items-center">
+        <Fructose class="h-32" />
+        <div class="flex flex-col items-center gap-1">
+          <div class="text-shade-1 font-semibold">Fructose</div>
+          <div>100 g (50%)</div>
+        </div>
       </div>
     </div>
 
@@ -148,7 +151,7 @@
     <svg fill="currentColor" height="200">
       <g>
         <text x="0%" y="20" text-anchor="start">Hypotonic</text>
-        <text x="50%" y="20" text-anchor="middle" class="font-semibold">200 mOsm/l</text>
+        <text x="50%" y="20" text-anchor="middle">200 mOsm/l</text>
         <text x="100%" y="20" text-anchor="end">Hypertonic</text>
       </g>
       <g>
