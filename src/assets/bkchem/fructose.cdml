@@ -1,0 +1,61 @@
+<?xml version="1.0" ?><cdml version="0.15" xmlns="http://www.freesoftware.fsf.org/bkchem/cdml">
+  <info>
+    <author_program version="0.13.0">BKchem</author_program>
+  </info>
+  <paper crop_margin="10" crop_svg="1" orientation="portrait" replace_minus="0" type="A4" use_real_minus="0"/>
+  <viewport viewport="0.000000 0.000000 640.000000 480.000000"/>
+  <standard area_color="" font_family="helvetica" font_size="12" line_color="#000" line_width="1.0px" paper_crop_margin="10" paper_crop_svg="1" paper_orientation="portrait" paper_type="A4">
+    <bond double-ratio="1.0" length="36px" wedge-width="5.0px" width="6px"/>
+    <arrow length="1.6cm"/>
+    <atom show_hydrogens="0"/>
+  </standard>
+  <molecule id="molecule20839" name="">
+    <atom id="atom46986" name="C" valency="4">
+      <point x="5.157cm" y="8.542cm"/>
+    </atom>
+    <atom id="atom9714" name="C" valency="4">
+      <point x="5.981cm" y="8.066cm"/>
+    </atom>
+    <atom id="atom65172" name="C" valency="4">
+      <point x="6.806cm" y="8.542cm"/>
+    </atom>
+    <atom id="atom39364" name="C" valency="4">
+      <point x="7.630cm" y="8.066cm"/>
+    </atom>
+    <atom id="atom2144" name="C" valency="4">
+      <point x="8.455cm" y="8.542cm"/>
+    </atom>
+    <atom id="atom79358" name="C" valency="4">
+      <point x="9.279cm" y="8.066cm"/>
+    </atom>
+    <atom hydrogens="on" id="atom59252" name="O" pos="center-last" valency="2">
+      <point x="4.332cm" y="8.066cm"/>
+    </atom>
+    <atom hydrogens="on" id="atom33515" name="O" pos="center-first" valency="2">
+      <point x="5.981cm" y="7.114cm"/>
+    </atom>
+    <atom hydrogens="on" id="atom82891" name="O" pos="center-first" valency="2">
+      <point x="7.630cm" y="7.114cm"/>
+    </atom>
+    <atom hydrogens="on" id="atom35543" name="O" pos="center-first" valency="2">
+      <point x="10.104cm" y="8.542cm"/>
+    </atom>
+    <atom id="atom68363" name="O" pos="center-first" valency="2">
+      <point x="8.455cm" y="9.494cm"/>
+    </atom>
+    <atom hydrogens="on" id="atom52625" name="O" pos="center-first" valency="2">
+      <point x="6.806cm" y="9.494cm"/>
+    </atom>
+    <bond double_ratio="1.0" end="atom65172" id="bond30266" line_width="1.0" start="atom9714" type="n1"/>
+    <bond double_ratio="1.0" end="atom2144" id="bond78895" line_width="1.0" start="atom39364" type="n1"/>
+    <bond double_ratio="1.0" end="atom59252" id="bond46468" line_width="1.0" start="atom46986" type="n1"/>
+    <bond double_ratio="1.0" end="atom39364" id="bond94015" line_width="1.0" start="atom65172" type="n1"/>
+    <bond double_ratio="1.0" end="atom79358" id="bond90303" line_width="1.0" start="atom2144" type="n1"/>
+    <bond double_ratio="1.0" end="atom9714" id="bond72927" line_width="1.0" start="atom46986" type="n1"/>
+    <bond double_ratio="1.0" end="atom35543" id="bond65738" line_width="1.0" start="atom79358" type="n1"/>
+    <bond double_ratio="1.0" end="atom33515" id="bond73117" line_width="1.0" start="atom9714" type="w1" wedge_width="5.0"/>
+    <bond bond_width="6.0" center="yes" double_ratio="1.0" end="atom68363" id="bond62765" line_width="1.0" start="atom2144" type="n2"/>
+    <bond double_ratio="1.0" end="atom52625" id="bond75392" line_width="1.0" start="atom65172" type="h1" wedge_width="5.0"/>
+    <bond double_ratio="1.0" end="atom82891" id="bond76065" line_width="1.0" start="atom39364" type="h1" wedge_width="5.0"/>
+  </molecule>
+</cdml>
