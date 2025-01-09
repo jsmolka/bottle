@@ -53,16 +53,18 @@
         </TableBody>
       </Table>
     </TableWrapper>
+    <div class="flex gap-8 mx-auto">
+      <div class="flex flex-col items-center gap-2">
+        <Glucose class="h-32 text-shade-1" />
+        <div>Glucose</div>
+        <div>100 g (50%)</div>
+      </div>
 
-    <div class="flex">
-      <div class="grow-[2] bg-shade-4 flex items-center justify-center p-2">66% Glucose</div>
-      <div class="grow-[1] bg-shade-6 flex items-center justify-center p-2">33% Fructose</div>
-    </div>
-
-    <div class="flex border-2 border-shade-2">
-      <div class="grow-[2] flex items-center justify-center p-2">66% Glucose</div>
-      <div class="border-r-2 border-shade-2"></div>
-      <div class="grow-[1] flex items-center justify-center p-2">33% Fructose</div>
+      <div class="flex flex-col items-center gap-2">
+        <Fructose class="h-32 text-shade-1" />
+        <div>Fructose</div>
+        <div>100 g (50%)</div>
+      </div>
     </div>
 
     <h1 class="flex justify-between items-center gap-4">
@@ -106,6 +108,41 @@
         </TableBody>
       </Table>
     </TableWrapper>
+    <div class="flex gap-8 mx-auto">
+      <div class="flex flex-col items-center gap-2">
+        <div class="flex flex-col items-center border border-shade-2 gap-1 p-1 bg-shade-7">
+          <div class="flex justify-between gap-4 text-xs">
+            <div>11</div>
+            <div>22.990</div>
+          </div>
+          <div class="text-4xl">Na</div>
+          <div class="text-xs">Sodium</div>
+        </div>
+        1500 mg
+      </div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="flex flex-col items-center border border-shade-2 gap-1 p-1 bg-shade-7">
+          <div class="flex justify-between gap-4 text-xs">
+            <div>19</div>
+            <div>39.098</div>
+          </div>
+          <div class="text-4xl">K</div>
+          <div class="text-xs">Potassium</div>
+        </div>
+        300 mg
+      </div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="flex flex-col items-center border border-shade-2 gap-1 p-1 bg-shade-7">
+          <div class="flex justify-between gap-4 text-xs">
+            <div>12</div>
+            <div>24.305</div>
+          </div>
+          <div class="text-4xl">Mg</div>
+          <div class="text-xs">Magnesium</div>
+        </div>
+        1500 mg
+      </div>
+    </div>
 
     <h1>Osmolarity</h1>
     <svg fill="currentColor" height="200">
@@ -161,6 +198,8 @@ import {
   TableWrapper,
 } from '@/components/ui/table';
 import { randomInt } from '@/utils/random';
+import Fructose from '@/views/Fructose.vue';
+import Glucose from '@/views/Glucose.vue';
 import { PhPlus, PhTrash } from '@phosphor-icons/vue';
 </script>
 
