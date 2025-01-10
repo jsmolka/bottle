@@ -11,7 +11,7 @@
     <h1>Bottle</h1>
     <FormItem>
       <Label>Volume</Label>
-      <InputNumber v-model="bottle.volume" :min="1" :max="10000" suffix=" ml" />
+      <InputNumber v-model="bottle.volume" :min="1" :max="2000" suffix=" ml" />
     </FormItem>
 
     <h1 class="flex justify-between items-center gap-4">
@@ -130,11 +130,11 @@
     </div>
 
     <h1>Osmolarity</h1>
-    <svg fill="currentColor" height="200">
+    <svg height="86" fill="currentColor">
       <g>
-        <text x="0%" y="20" text-anchor="start">Hypotonic</text>
-        <text x="50%" y="20" text-anchor="middle">200 mOsm/l</text>
-        <text x="100%" y="20" text-anchor="end">Hypertonic</text>
+        <text x="0%" y="14" text-anchor="start">Hypotonic</text>
+        <text x="50%" y="14" text-anchor="middle">200 mOsm/l</text>
+        <text x="100%" y="14" text-anchor="end">Hypertonic</text>
       </g>
       <g>
         <defs>
@@ -150,17 +150,17 @@
             <stop offset="86.66%" stop-color="rgb(var(--red))" />
           </linearGradient>
         </defs>
-        <rect x="0%" y="30" width="100%" height="40" fill="url(#osmolarity-gradient)" />
-        <line x1="34%" y1="30" x2="34%" y2="70" class="stroke-shade-8" stroke-width="8" />
+        <rect x="0%" y="24" width="100%" height="40" fill="url(#osmolarity-gradient)" />
+        <line x1="34%" y1="24" x2="34%" y2="64" class="stroke-shade-8" stroke-width="8" />
       </g>
       <g>
-        <text x="0%" y="90" text-anchor="start">0</text>
-        <text x="16.66%" y="90" text-anchor="middle">100</text>
-        <text x="33.33%" y="90" text-anchor="middle">200</text>
-        <text x="50%" y="90" text-anchor="middle">300</text>
-        <text x="66.66%" y="90" text-anchor="middle">400</text>
-        <text x="83.33%" y="90" text-anchor="middle">500</text>
-        <text x="100%" y="90" text-anchor="end">>600</text>
+        <text x="0%" y="84" text-anchor="start">0</text>
+        <text x="16.66%" y="84" text-anchor="middle">100</text>
+        <text x="33.33%" y="84" text-anchor="middle">200</text>
+        <text x="50%" y="84" text-anchor="middle">300</text>
+        <text x="66.66%" y="84" text-anchor="middle">400</text>
+        <text x="83.33%" y="84" text-anchor="middle">500</text>
+        <text x="100%" y="84" text-anchor="end">>600</text>
       </g>
     </svg>
   </Form>
@@ -194,7 +194,7 @@ import { storeToRefs } from 'pinia';
 const { bottle } = storeToRefs(useBottleStore());
 </script>
 
-<style>
+<style scoped>
 h1 {
   @apply -mb-2;
   @apply text-base;
