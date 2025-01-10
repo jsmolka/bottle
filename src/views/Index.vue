@@ -124,9 +124,9 @@
     </TableWrapper>
 
     <div class="flex flex-wrap justify-center gap-8 mx-auto">
-      <Electrolyte :atom="sodium" :mass="1.5" />
-      <Electrolyte :atom="potassium" :mass="1.5" />
-      <Electrolyte :atom="magnesium" :mass="1.5" />
+      <Electrolyte :atom="Atom.sodium" :mass="1.5" />
+      <Electrolyte :atom="Atom.potassium" :mass="1.5" />
+      <Electrolyte :atom="Atom.magnesium" :mass="1.5" />
     </div>
 
     <h1>Osmolarity</h1>
@@ -182,7 +182,7 @@ import {
   TableRow,
   TableWrapper,
 } from '@/components/ui/table';
-import { magnesium, potassium, sodium } from '@/modules/chemistry';
+import { Atom } from '@/modules/chemistry';
 import { useBottleStore } from '@/stores/bottle';
 import Carbohydrate from '@/views/Carbohydrate.vue';
 import Electrolyte from '@/views/Electrolyte.vue';
