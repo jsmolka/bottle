@@ -2,10 +2,10 @@
   <Form class="max-w-screen-sm mx-auto p-4">
     <div class="flex flex-col items-center gap-4">
       <Logo class="size-8 text-shade-1" />
-      <p>
+      <div>
         A companion app for the
         <Link href="https://www.smolka.dev/posts/the-bottle">bottle post</Link>.
-      </p>
+      </div>
     </div>
 
     <h1>Bottle</h1>
