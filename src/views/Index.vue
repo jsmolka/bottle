@@ -64,21 +64,13 @@
       </Table>
     </TableWrapper>
 
-    <div class="flex gap-4 mx-auto max-w-full">
-      <div class="flex flex-col items-center">
-        <Glucose class="max-h-fit w-full" />
-        <div class="flex flex-col items-center gap-1">
-          <div class="text-shade-1 font-semibold">Glucose</div>
-          <div>100 g (50%)</div>
-        </div>
-      </div>
-      <div class="flex flex-col items-center">
-        <Fructose class="max-h-fit w-full" />
-        <div class="flex flex-col items-center gap-1">
-          <div class="text-shade-1 font-semibold">Fructose</div>
-          <div>100 g (50%)</div>
-        </div>
-      </div>
+    <div class="flex gap-4">
+      <Carbohydrate name="Glucose" :mass="100" :percentage="50">
+        <Glucose class="w-full" />
+      </Carbohydrate>
+      <Carbohydrate name="Fructose" :mass="100" :percentage="50">
+        <Fructose class="w-full" />
+      </Carbohydrate>
     </div>
 
     <h1 class="flex justify-between items-center gap-4">
@@ -91,32 +83,40 @@
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead class="w-[35%]">Substrate</TableHead>
-            <TableHead class="w-[15%] text-right">Mass</TableHead>
-            <TableHead class="w-[25%] text-right">Concentration</TableHead>
-            <TableHead class="w-[25%] text-right">Osmolarity</TableHead>
-            <TableHead class="w-0"></TableHead>
+            <TableHead>Name</TableHead>
+            <TableHead class="w-20 min-w-20 text-right">Mass</TableHead>
+            <TableHead class="w-32 min-w-32 text-right hidden sm:table-cell">
+              Concentration
+            </TableHead>
+            <TableHead class="w-32 min-w-32 text-right">Osmolarity</TableHead>
+            <TableHead class="w-0" />
           </TableRow>
         </TableHeader>
         <TableBody>
           <TableRow v-for="_ in [1, 2, 3, 4]">
             <TableCell>Sodium chloride</TableCell>
             <TableCell>
-              <InputNumber class="text-right" :model-value="0" suffix=" g" />
+              <InputNumber
+                class="text-right"
+                :model-value="1000"
+                :min="0"
+                :max="1000"
+                suffix=" g"
+              />
             </TableCell>
-            <TableCell class="text-right">{{ randomInt(100) }} g/l</TableCell>
-            <TableCell class="text-right">{{ randomInt(400) }} mOsm/l</TableCell>
+            <TableCell class="text-right hidden sm:table-cell">10000 g/l</TableCell>
+            <TableCell class="text-right">10000 mOsm/l</TableCell>
             <TableCell>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" tabindex="-1">
                 <PhTrash class="size-4" />
               </Button>
             </TableCell>
           </TableRow>
           <TableRow class="border-t-2 border-shade-4">
             <TableCell>Total</TableCell>
-            <TableCell class="text-right">400 g</TableCell>
-            <TableCell class="text-right">400 g/l</TableCell>
-            <TableCell class="text-right">400 mOsm/l</TableCell>
+            <TableCell class="text-right">10000 g</TableCell>
+            <TableCell class="text-right hidden sm:table-cell">10000 g/l</TableCell>
+            <TableCell class="text-right">10000 mOsm/l</TableCell>
             <TableCell />
           </TableRow>
         </TableBody>
@@ -124,7 +124,7 @@
     </TableWrapper>
 
     <div class="flex justify-center gap-8 mx-auto flex-wrap">
-      <div class="flex flex-col items-center gap-2">
+      <div class="flex flex-col items-center gap-1">
         <div class="flex flex-col items-center border border-shade-2 gap-1 p-1 bg-shade-7">
           <div class="flex justify-between gap-4 text-xs">
             <div>11</div>
@@ -135,7 +135,7 @@
         </div>
         1500 mg
       </div>
-      <div class="flex flex-col items-center gap-2">
+      <div class="flex flex-col items-center gap-1">
         <div class="flex flex-col items-center border border-shade-2 gap-1 p-1 bg-shade-7">
           <div class="flex justify-between gap-4 text-xs">
             <div>19</div>
@@ -146,7 +146,7 @@
         </div>
         300 mg
       </div>
-      <div class="flex flex-col items-center gap-2">
+      <div class="flex flex-col items-center gap-1">
         <div class="flex flex-col items-center border border-shade-2 gap-1 p-1 bg-shade-7">
           <div class="flex justify-between gap-4 text-xs">
             <div>12</div>
@@ -212,7 +212,7 @@ import {
   TableRow,
   TableWrapper,
 } from '@/components/ui/table';
-import { randomInt } from '@/utils/random';
+import Carbohydrate from '@/views/Carbohydrate.vue';
 import Fructose from '@/views/Fructose.vue';
 import Glucose from '@/views/Glucose.vue';
 import { PhPlus, PhTrash } from '@phosphor-icons/vue';
