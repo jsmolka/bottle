@@ -123,40 +123,10 @@
       </Table>
     </TableWrapper>
 
-    <div class="flex justify-center gap-8 mx-auto flex-wrap">
-      <div class="flex flex-col items-center gap-1">
-        <div class="flex flex-col items-center border border-shade-2 gap-1 p-1 bg-shade-7">
-          <div class="flex justify-between gap-4 text-xs">
-            <div>11</div>
-            <div>22.990</div>
-          </div>
-          <div class="text-4xl">Na</div>
-          <div class="text-xs">Sodium</div>
-        </div>
-        1500 mg
-      </div>
-      <div class="flex flex-col items-center gap-1">
-        <div class="flex flex-col items-center border border-shade-2 gap-1 p-1 bg-shade-7">
-          <div class="flex justify-between gap-4 text-xs">
-            <div>19</div>
-            <div>39.098</div>
-          </div>
-          <div class="text-4xl">K</div>
-          <div class="text-xs">Potassium</div>
-        </div>
-        300 mg
-      </div>
-      <div class="flex flex-col items-center gap-1">
-        <div class="flex flex-col items-center border border-shade-2 gap-1 p-1 bg-shade-7">
-          <div class="flex justify-between gap-4 text-xs">
-            <div>12</div>
-            <div>24.305</div>
-          </div>
-          <div class="text-4xl">Mg</div>
-          <div class="text-xs">Magnesium</div>
-        </div>
-        1500 mg
-      </div>
+    <div class="flex flex-wrap justify-center gap-8 mx-auto">
+      <Electrolyte :element="sodium" :mass="1.5" />
+      <Electrolyte :element="potassium" :mass="1.5" />
+      <Electrolyte :element="magnesium" :mass="1.5" />
     </div>
 
     <h1>Osmolarity</h1>
@@ -212,8 +182,10 @@ import {
   TableRow,
   TableWrapper,
 } from '@/components/ui/table';
+import { magnesium, potassium, sodium } from '@/modules/chemistry';
 import { useBottleStore } from '@/stores/bottle';
 import Carbohydrate from '@/views/Carbohydrate.vue';
+import Electrolyte from '@/views/Electrolyte.vue';
 import Fructose from '@/views/Fructose.vue';
 import Glucose from '@/views/Glucose.vue';
 import { PhPlus, PhTrash } from '@phosphor-icons/vue';
