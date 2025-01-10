@@ -124,9 +124,9 @@
     </TableWrapper>
 
     <div class="flex flex-wrap justify-center gap-8 mx-auto">
-      <Electrolyte :element="sodium" :mass="1.5" />
-      <Electrolyte :element="potassium" :mass="1.5" />
-      <Electrolyte :element="magnesium" :mass="1.5" />
+      <Electrolyte :atom="sodium" :mass="1.5" />
+      <Electrolyte :atom="potassium" :mass="1.5" />
+      <Electrolyte :atom="magnesium" :mass="1.5" />
     </div>
 
     <h1>Osmolarity</h1>

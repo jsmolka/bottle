@@ -1,4 +1,4 @@
-export class Element {
+export class Atom {
   constructor(number, name, symbol, mass) {
     this.number = number;
     this.name = name;
@@ -7,11 +7,10 @@ export class Element {
   }
 }
 
-// https://physics.nist.gov/PhysRefData/Handbook/periodictable.htm
-export const hydrogen = new Element(1, 'Hydrogen', 'H', 1.00794);
-export const carbon = new Element(6, 'Carbon', 'C', 12.011);
-export const oxygen = new Element(8, 'Oxygen', 'O', 15.9994);
-export const sodium = new Element(11, 'Sodium', 'Na', 22.989768);
-export const magnesium = new Element(12, 'Magnesium', 'Mg', 24.305);
-export const chlorine = new Element(17, 'Chlorine', 'Cl', 35.4527);
-export const potassium = new Element(19, 'Potassium', 'K', 39.0983);
+export const hydrogen = new Atom(1, 'Hydrogen', 'H', 1.008);
+export const carbon = new Atom(6, 'Carbon', 'C', 12.011);
+export const oxygen = new Atom(8, 'Oxygen', 'O', 15.999);
+export const sodium = new Atom(11, 'Sodium', 'Na', 22.99);
+export const magnesium = new Atom(12, 'Magnesium', 'Mg', 24.305);
+export const chlorine = new Atom(17, 'Chlorine', 'Cl', 35.45);
+export const potassium = new Atom(19, 'Potassium', 'K', 39.098);
