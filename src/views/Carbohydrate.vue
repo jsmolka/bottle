@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center">
     <slot />
     <div class="text-shade-1 font-semibold">{{ name }}</div>
-    <div>{{ mass }} g ({{ percentage }}%)</div>
+    <div>{{ mass }} g ({{ 100 * percentage }}%)</div>
   </div>
 </template>
 

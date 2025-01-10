@@ -65,10 +65,10 @@
     </TableWrapper>
 
     <div class="flex gap-4">
-      <Carbohydrate name="Glucose" :mass="100" :percentage="50">
+      <Carbohydrate name="Glucose" :mass="100" :percentage="0.5">
         <Glucose class="w-full" />
       </Carbohydrate>
-      <Carbohydrate name="Fructose" :mass="100" :percentage="50">
+      <Carbohydrate name="Fructose" :mass="100" :percentage="0.5">
         <Fructose class="w-full" />
       </Carbohydrate>
     </div>
