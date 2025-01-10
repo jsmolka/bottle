@@ -220,6 +220,7 @@ import { PhPlus, PhTrash } from '@phosphor-icons/vue';
 
 <style>
 h1 {
+  @apply -mb-2;
   @apply text-base;
   @apply text-shade-1;
   @apply font-bold;
