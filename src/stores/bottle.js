@@ -1,44 +1,44 @@
-import { Settings } from '@/modules/settings';
+import { Bottle } from '@/modules/bottle';
 import { deserialize, serialize } from '@/utils/persist';
 import { watchIgnorable } from '@vueuse/core';
 import { get, set } from 'idb-keyval';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-export const useSettingsStore = defineStore('settings', () => {
-  const settings = ref(new Settings());
+export const useBottleStore = defineStore('bottle', () => {
+  const bottle = ref(new Bottle());
 
   const toJson = () => {
-    return { version: 1, data: serialize(settings.value) };
+    return { version: 1, data: serialize(bottle.value) };
   };
 
   const fromJson = (data) => {
     if (data != null && data.version != null) {
-      settings.value = deserialize(Settings, convert(data));
+      bottle.value = deserialize(Bottle, convert(data));
     }
   };
 
-  const storageKey = 'settings';
+  const storageKey = 'bottle';
 
   const persist = async () => {
     await set(storageKey, toJson());
   };
 
-  const { ignoreUpdates } = watchIgnorable(settings, persist, { deep: true });
+  const { ignoreUpdates } = watchIgnorable(bottle, persist, { deep: true });
 
   const hydrate = async () => {
     const data = await get(storageKey);
     ignoreUpdates(() => fromJson(data));
   };
 
-  return { settings, toJson, fromJson, persist, hydrate };
+  return { bottle, toJson, fromJson, persist, hydrate };
 });
 
 function convert(data) {
-  const { version, data: settings } = data;
+  const { version, data: bottle } = data;
   switch (version) {
     case 1:
       break;
   }
-  return settings;
+  return bottle;
 }

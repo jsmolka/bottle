@@ -11,7 +11,7 @@
     <h1>Bottle</h1>
     <FormItem>
       <Label>Volume</Label>
-      <InputNumber :model-value="1000" :min="1" :max="10000" suffix=" ml" />
+      <InputNumber v-model="bottle.volume" :min="1" :max="10000" suffix=" ml" />
     </FormItem>
 
     <h1 class="flex justify-between items-center gap-4">
@@ -212,10 +212,14 @@ import {
   TableRow,
   TableWrapper,
 } from '@/components/ui/table';
+import { useBottleStore } from '@/stores/bottle';
 import Carbohydrate from '@/views/Carbohydrate.vue';
 import Fructose from '@/views/Fructose.vue';
 import Glucose from '@/views/Glucose.vue';
 import { PhPlus, PhTrash } from '@phosphor-icons/vue';
+import { storeToRefs } from 'pinia';
+
+const { bottle } = storeToRefs(useBottleStore());
 </script>
 
 <style>

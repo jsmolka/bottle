@@ -1,9 +1,9 @@
-import { useSettingsStore } from '@/stores/settings';
+import { useBottleStore } from '@/stores/bottle';
 import { defineStore } from 'pinia';
 
 export const useStores = defineStore('stores', () => {
   const stores = {
-    settings: useSettingsStore(),
+    bottle: useBottleStore(),
   };
 
   const hydrate = async () => {
