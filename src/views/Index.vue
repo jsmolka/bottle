@@ -76,12 +76,12 @@
         </defs>
         <rect x="0%" y="24" width="100%" height="40" fill="url(#osmolarity-gradient)" />
         <line
-          :x1="(clamp(1000 * osmolarity, 0, 600) / 600) * 100 + '%'"
+          :x1="`max(5px, min(${100 * osmolarityPercentage}%, 100% - 5px))`"
+          :x2="`max(5px, min(${100 * osmolarityPercentage}%, 100% - 5px))`"
           y1="24"
-          :x2="(clamp(1000 * osmolarity, 0, 600) / 600) * 100 + '%'"
           y2="64"
-          class="stroke-shade-8"
           stroke-width="8"
+          class="stroke-shade-8"
         />
       </g>
       <g>
@@ -120,6 +120,10 @@ const { bottle } = storeToRefs(useBottleStore());
 
 const osmolarity = computed(() => {
   return bottle.value.osmolarity;
+});
+
+const osmolarityPercentage = computed(() => {
+  return clamp(1000 * osmolarity.value, 0, 600) / 600;
 });
 </script>
 
