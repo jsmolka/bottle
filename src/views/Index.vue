@@ -22,7 +22,7 @@
 
     <h1 class="flex justify-between items-center gap-4">
       Carbohydrates
-      <Button size="icon">
+      <Button size="icon" tabindex="-1">
         <PhPlus class="size-4" />
       </Button>
     </h1>
@@ -39,7 +39,7 @@
 
     <h1 class="flex justify-between items-center gap-4">
       Electrolytes
-      <Button size="icon">
+      <Button size="icon" tabindex="-1">
         <PhPlus class="size-4" />
       </Button>
     </h1>
