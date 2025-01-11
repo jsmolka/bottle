@@ -54,7 +54,7 @@
     </div>
 
     <h1>Osmolarity</h1>
-    <svg height="86" fill="currentColor">
+    <svg ref="osmolarityChart" height="86" fill="currentColor">
       <g>
         <text x="0%" y="14" text-anchor="start">Hypotonic</text>
         <text x="50%" y="14" text-anchor="middle">{{ Math.round(1000 * osmolarity) }} mOsm/l</text>
@@ -76,8 +76,8 @@
         </defs>
         <rect x="0%" y="24" width="100%" height="40" fill="url(#osmolarity-gradient)" />
         <line
-          :x1="`max(5px, min(${100 * osmolarityPercentage}%, 100% - 5px))`"
-          :x2="`max(5px, min(${100 * osmolarityPercentage}%, 100% - 5px))`"
+          :x1="osmolarityX"
+          :x2="osmolarityX"
           y1="24"
           y2="64"
           stroke-width="8"
@@ -113,8 +113,9 @@ import Fructose from '@/views/Fructose.vue';
 import Glucose from '@/views/Glucose.vue';
 import Mixtures from '@/views/Mixtures.vue';
 import { PhPlus } from '@phosphor-icons/vue';
+import { useResizeObserver } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
+import { computed, ref, useTemplateRef } from 'vue';
 
 const { bottle } = storeToRefs(useBottleStore());
 
@@ -122,8 +123,19 @@ const osmolarity = computed(() => {
   return bottle.value.osmolarity;
 });
 
-const osmolarityPercentage = computed(() => {
-  return clamp(1000 * osmolarity.value, 0, 600) / 600;
+const osmolarityChart = useTemplateRef('osmolarityChart');
+const osmolarityWidth = ref(0);
+
+useResizeObserver(osmolarityChart, ([entry]) => {
+  osmolarityWidth.value = entry.contentRect.width;
+});
+
+const osmolarityX = computed(() => {
+  return clamp(
+    ((1000 * osmolarity.value) / 600) * osmolarityWidth.value,
+    5,
+    osmolarityWidth.value - 5,
+  );
 });
 </script>
 
