@@ -4,7 +4,9 @@
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
-          <TableHead class="w-20 min-w-20 text-right">Mass</TableHead>
+          <TableHead class="w-20 min-w-20 text-right">
+            <div class="px-2 border-x border-transparent">Mass</div>
+          </TableHead>
           <TableHead class="w-32 min-w-32 text-right hidden sm:table-cell">
             Concentration
           </TableHead>
@@ -21,6 +23,7 @@
               v-model="mixture.mass"
               :min="0"
               :max="1000"
+              :precision="2"
               suffix=" g"
             />
           </TableCell>
@@ -39,9 +42,7 @@
         <TableRow class="border-t-2 border-shade-4">
           <TableCell>Total</TableCell>
           <TableCell class="text-right">
-            <div :class="{ 'px-2 border border-transparent': mixtures.length > 0 }">
-              {{ totalMass }} g
-            </div>
+            <div class="px-2 border-x border-transparent">{{ totalMass }} g</div>
           </TableCell>
           <TableCell class="text-right hidden sm:table-cell">
             {{ Math.round(totalConcentration) }} g/l

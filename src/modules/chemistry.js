@@ -37,33 +37,122 @@ defineSchema(Atoms, {
 });
 
 export class Molecule {
-  constructor(name, formula, osmolesPerMole = 1) {
+  constructor(name, formula, osmolesPerMole) {
     this.name = name;
     this.formula = formula;
     this.osmolesPerMole = osmolesPerMole;
   }
 
-  static glucose = new Molecule('Glucose', [
-    new Atoms(Atom.carbon, 6),
-    new Atoms(Atom.hydrogen, 12),
-    new Atoms(Atom.oxygen, 6),
-  ]);
+  static maltodextrin(n) {
+    return new Molecule(
+      `Maltodextrin (n = ${n})`,
+      [
+        new Atoms(Atom.carbon, 6 * n),
+        new Atoms(Atom.hydrogen, 10 * n + 2),
+        new Atoms(Atom.oxygen, 5 * n + 1),
+      ],
+      1,
+    );
+  }
 
-  static fructose = new Molecule('Fructose', [
-    new Atoms(Atom.carbon, 6),
-    new Atoms(Atom.hydrogen, 12),
-    new Atoms(Atom.oxygen, 6),
-  ]);
+  static fructose = new Molecule(
+    'Fructose',
+    [
+      new Atoms(Atom.carbon, 6),
+      new Atoms(Atom.hydrogen, 12),
+      new Atoms(Atom.oxygen, 6),
+    ], // prettier-ignore
+    1,
+  );
 
-  static sucrose = new Molecule('Sucrose', [
-    new Atoms(Atom.carbon, 12),
-    new Atoms(Atom.hydrogen, 22),
-    new Atoms(Atom.oxygen, 11),
-  ]);
+  static sucrose = new Molecule(
+    'Sucrose',
+    [
+      new Atoms(Atom.carbon, 12),
+      new Atoms(Atom.hydrogen, 22),
+      new Atoms(Atom.oxygen, 11)
+    ], // prettier-ignore
+    1,
+  );
+
+  static isomaltulose = new Molecule(
+    'Isomaltulose',
+    [
+      new Atoms(Atom.carbon, 12),
+      new Atoms(Atom.hydrogen, 22),
+      new Atoms(Atom.oxygen, 11)
+    ], // prettier-ignore
+    1,
+  );
 
   static sodiumChloride = new Molecule(
     'Sodium chloride',
-    [new Atoms(Atom.sodium, 1), new Atoms(Atom.chlorine, 1)],
+    [
+      new Atoms(Atom.sodium, 1),
+      new Atoms(Atom.chlorine, 1)
+    ], // prettier-ignore
+    2,
+  );
+
+  static sodiumCitrate = new Molecule(
+    'Sodium citrate',
+    [
+      new Atoms(Atom.sodium, 3),
+      new Atoms(Atom.carbon, 6),
+      new Atoms(Atom.hydrogen, 5),
+      new Atoms(Atom.oxygen, 7),
+    ],
+    4,
+  );
+
+  static potassiumChloride = new Molecule(
+    'Potassium chloride',
+    [
+      new Atoms(Atom.potassium, 1),
+      new Atoms(Atom.chlorine, 1)
+    ], // prettier-ignore
+    2,
+  );
+
+  static potassiumCitrate = new Molecule(
+    'Potassium citrate',
+    [
+      new Atoms(Atom.potassium, 3),
+      new Atoms(Atom.carbon, 6),
+      new Atoms(Atom.hydrogen, 5),
+      new Atoms(Atom.oxygen, 7),
+    ],
+    4,
+  );
+
+  static magnesiumChloride = new Molecule(
+    'Magnesium chloride',
+    [
+      new Atoms(Atom.magnesium, 1),
+      new Atoms(Atom.chlorine, 2)
+    ], // prettier-ignore
+    3,
+  );
+
+  static magnesiumCitrate = new Molecule(
+    'Magnesium citrate',
+    [
+      new Atoms(Atom.magnesium, 1),
+      new Atoms(Atom.carbon, 6),
+      new Atoms(Atom.hydrogen, 6),
+      new Atoms(Atom.oxygen, 7),
+    ],
+    2,
+  );
+
+  static magnesiumMalate = new Molecule(
+    'Magnesium malate',
+    [
+      new Atoms(Atom.magnesium, 1),
+      new Atoms(Atom.carbon, 4),
+      new Atoms(Atom.hydrogen, 4),
+      new Atoms(Atom.oxygen, 5),
+    ],
     2,
   );
 
