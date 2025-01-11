@@ -39,7 +39,9 @@
         <TableRow class="border-t-2 border-shade-4">
           <TableCell>Total</TableCell>
           <TableCell class="text-right">
-            <div class="px-2 border border-transparent">{{ totalMass }} g</div>
+            <div :class="{ 'px-2 border border-transparent': mixtures.length > 0 }">
+              {{ totalMass }} g
+            </div>
           </TableCell>
           <TableCell class="text-right hidden sm:table-cell">
             {{ Math.round(totalConcentration) }} g/l
