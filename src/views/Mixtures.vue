@@ -69,18 +69,11 @@ import {
   TableWrapper,
 } from '@/components/ui/table';
 import { Mixtures } from '@/modules/chemistry';
+import { format } from '@/utils/format';
 import { PhTrash } from '@phosphor-icons/vue';
 
 defineProps({
   mixtures: { type: Mixtures, required: true },
   volume: { type: Number, required: true },
 });
-
-const format = (value, decimals = 0) => {
-  return value.toLocaleString(undefined, {
-    useGrouping: false,
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  });
-};
 </script>
