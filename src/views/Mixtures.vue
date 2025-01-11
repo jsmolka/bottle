@@ -28,10 +28,10 @@
             />
           </TableCell>
           <TableCell class="text-right hidden sm:table-cell">
-            {{ Math.round(concentrations[index]) }} g/l
+            {{ format(mixture.concentration(volume)) }} g/l
           </TableCell>
           <TableCell class="text-right">
-            {{ Math.round(1000 * osmolarities[index]) }} mOsm/l
+            {{ format(1000 * mixture.osmolarity(volume)) }} mOsm/l
           </TableCell>
           <TableCell>
             <Button variant="ghost" size="icon" tabindex="-1" @click="mixtures.splice(index, 1)">
@@ -42,13 +42,13 @@
         <TableRow class="border-t-2 border-shade-4">
           <TableCell>Total</TableCell>
           <TableCell class="text-right">
-            <div class="px-2 border-x border-transparent">{{ totalMass }} g</div>
+            <div class="px-2 border-x border-transparent">{{ format(mixtures.totalMass) }} g</div>
           </TableCell>
           <TableCell class="text-right hidden sm:table-cell">
-            {{ Math.round(totalConcentration) }} g/l
+            {{ format(mixtures.totalConcentration(volume)) }} g/l
           </TableCell>
           <TableCell class="text-right">
-            {{ Math.round(1000 * totalOsmolarity) }} mOsm/l
+            {{ format(1000 * mixtures.totalOsmolarity(volume)) }} mOsm/l
           </TableCell>
           <TableCell />
         </TableRow>
@@ -70,45 +70,17 @@ import {
   TableWrapper,
 } from '@/components/ui/table';
 import { PhTrash } from '@phosphor-icons/vue';
-import { computed } from 'vue';
 
 const props = defineProps({
   mixtures: { type: Array, required: true },
   volume: { type: Number, required: true },
 });
 
-const concentrations = computed(() => {
-  return props.mixtures.map(({ mass }) => mass / props.volume);
-});
-
-const osmolarities = computed(() => {
-  return concentrations.value.map(
-    (concentration, index) =>
-      (concentration / props.mixtures[index].molarMass) * props.mixtures[index].osmolesPerMole,
-  );
-});
-
-const totalMass = computed(() => {
-  let total = 0;
-  for (const mixture of props.mixtures) {
-    total += mixture.mass;
-  }
-  return total;
-});
-
-const totalConcentration = computed(() => {
-  let total = 0;
-  for (const concentration of concentrations.value) {
-    total += concentration;
-  }
-  return total;
-});
-
-const totalOsmolarity = computed(() => {
-  let total = 0;
-  for (const osmolarity of osmolarities.value) {
-    total += osmolarity;
-  }
-  return total;
-});
+const format = (value, decimals = 0) => {
+  return value.toLocaleString(undefined, {
+    useGrouping: false,
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+};
 </script>

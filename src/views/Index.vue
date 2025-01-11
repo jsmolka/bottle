@@ -11,7 +11,13 @@
     <h1>Bottle</h1>
     <FormItem>
       <Label>Volume</Label>
-      <InputNumber v-model="bottle.volume" :min="1" :max="2000" suffix=" ml" />
+      <InputNumber
+        :model-value="1000 * bottle.volume"
+        @update:model-value="bottle.volume = $event / 1000"
+        :min="1"
+        :max="2000"
+        suffix=" ml"
+      />
     </FormItem>
 
     <h1 class="flex justify-between items-center gap-4">
@@ -20,7 +26,7 @@
         <PhPlus class="size-4" />
       </Button>
     </h1>
-    <Mixtures :mixtures="bottle.carbohydrates" :volume="bottle.volume / 1000" />
+    <Mixtures :mixtures="bottle.carbohydrates" :volume="bottle.volume" />
 
     <div class="flex gap-4">
       <Carbohydrate name="Glucose" :mass="100" :percentage="0.5">
@@ -37,19 +43,21 @@
         <PhPlus class="size-4" />
       </Button>
     </h1>
-    <Mixtures :mixtures="bottle.electrolytes" :volume="bottle.volume / 1000" />
+    <Mixtures :mixtures="bottle.electrolytes" :volume="bottle.volume" />
 
     <div class="flex flex-wrap justify-center gap-8 mx-auto">
-      <Electrolyte :atom="Atom.sodium" :mass="1.5" />
-      <Electrolyte :atom="Atom.potassium" :mass="1.5" />
-      <Electrolyte :atom="Atom.magnesium" :mass="1.5" />
+      <Electrolyte
+        v-for="atom of [Atom.sodium, Atom.potassium, Atom.magnesium]"
+        :atom="atom"
+        :mass="bottle.electrolytes.molarMassPercentage(atom) * bottle.electrolytes.totalMass"
+      />
     </div>
 
     <h1>Osmolarity</h1>
     <svg height="86" fill="currentColor">
       <g>
         <text x="0%" y="14" text-anchor="start">Hypotonic</text>
-        <text x="50%" y="14" text-anchor="middle">200 mOsm/l</text>
+        <text x="50%" y="14" text-anchor="middle">{{ Math.round(1000 * osmolarity) }} mOsm/l</text>
         <text x="100%" y="14" text-anchor="end">Hypertonic</text>
       </g>
       <g>
@@ -67,7 +75,14 @@
           </linearGradient>
         </defs>
         <rect x="0%" y="24" width="100%" height="40" fill="url(#osmolarity-gradient)" />
-        <line x1="34%" y1="24" x2="34%" y2="64" class="stroke-shade-8" stroke-width="8" />
+        <line
+          :x1="(clamp(1000 * osmolarity, 0, 600) / 600) * 100 + '%'"
+          y1="24"
+          :x2="(clamp(1000 * osmolarity, 0, 600) / 600) * 100 + '%'"
+          y2="64"
+          class="stroke-shade-8"
+          stroke-width="8"
+        />
       </g>
       <g>
         <text x="0%" y="84" text-anchor="start">0</text>
@@ -91,6 +106,7 @@ import { Label } from '@/components/ui/label';
 import { Link } from '@/components/ui/link';
 import { Atom } from '@/modules/chemistry';
 import { useBottleStore } from '@/stores/bottle';
+import { clamp } from '@/utils/numeric';
 import Carbohydrate from '@/views/Carbohydrate.vue';
 import Electrolyte from '@/views/Electrolyte.vue';
 import Fructose from '@/views/Fructose.vue';
@@ -98,8 +114,13 @@ import Glucose from '@/views/Glucose.vue';
 import Mixtures from '@/views/Mixtures.vue';
 import { PhPlus } from '@phosphor-icons/vue';
 import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 
 const { bottle } = storeToRefs(useBottleStore());
+
+const osmolarity = computed(() => {
+  return bottle.value.osmolarity;
+});
 </script>
 
 <style scoped>

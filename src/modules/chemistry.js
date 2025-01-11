@@ -29,6 +29,11 @@ export class Atoms {
     this.atom = atom;
     this.count = count;
   }
+
+  // u
+  get mass() {
+    return this.atom.mass * this.count;
+  }
 }
 
 defineSchema(Atoms, {
@@ -40,7 +45,7 @@ export class Molecule {
   constructor(name, formula, osmolesPerMole) {
     this.name = name;
     this.formula = formula;
-    this.osmolesPerMole = osmolesPerMole;
+    this.osmolesPerMole = osmolesPerMole; // Osm/mol
   }
 
   static maltodextrin(n) {
@@ -158,11 +163,26 @@ export class Molecule {
 
   // g/mol
   get molarMass() {
-    let mass = 0;
+    let molarMass = 0;
     for (const atoms of this.formula) {
-      mass += atoms.atom.mass * atoms.count;
+      molarMass += atoms.mass;
     }
-    return mass;
+    return molarMass;
+  }
+
+  // g/l -> Osm/l
+  osmolarity(concentration) {
+    return (concentration / this.molarMass) * this.osmolesPerMole;
+  }
+
+  molarMassPercentage(atom) {
+    let molarMass = 0;
+    for (const atoms of this.formula) {
+      if (atoms.atom.number === atom.number) {
+        molarMass += atoms.mass;
+      }
+    }
+    return molarMass / this.molarMass;
   }
 }
 
@@ -184,6 +204,47 @@ defineSchema(Substance, {
   proportion: primitive(),
 });
 
+export class Substances extends Array {
+  get totalProportion() {
+    let proportion = 0;
+    for (const substance of this) {
+      proportion += substance.proportion;
+    }
+    return proportion;
+  }
+
+  // g/mol
+  get molarMass() {
+    let molarMass = 0;
+    for (const substance of this) {
+      molarMass += substance.proportion * substance.molecule.molarMass;
+    }
+    return molarMass / this.totalProportion;
+  }
+
+  // Osm/mol
+  get osmolesPerMole() {
+    let osmolesPerMole = 0;
+    for (const substance of this) {
+      osmolesPerMole += substance.proportion * substance.molecule.osmolesPerMole;
+    }
+    return osmolesPerMole / this.totalProportion;
+  }
+
+  // g/l -> Osm/l
+  osmolarity(concentration) {
+    return (concentration / this.molarMass) * this.osmolesPerMole;
+  }
+
+  molarMassPercentage(atom) {
+    let molarMass = 0;
+    for (const substance of this) {
+      molarMass += substance.proportion * substance.molecule.molarMassPercentage(atom);
+    }
+    return molarMass / this.totalProportion;
+  }
+}
+
 export class Mixture {
   constructor(name, substances, mass) {
     this.name = name;
@@ -191,34 +252,79 @@ export class Mixture {
     this.mass = mass; // g
   }
 
-  static fromMolecule(molecule, mass) {
-    return new Mixture(molecule.name, [new Substance(molecule, 1)], mass);
+  static molecule(molecule, mass) {
+    return new Mixture(molecule.name, Substances.of(new Substance(molecule, 1)), mass);
   }
 
-  // g/mol
-  get molarMass() {
-    let total = 0;
-    let totalProportions = 0;
-    for (const substance of this.substances) {
-      total += substance.proportion * substance.molecule.molarMass;
-      totalProportions += substance.proportion;
-    }
-    return total / totalProportions;
+  static lmnt(mass) {
+    return new Mixture(
+      'LMNT',
+      Substances.of(
+        new Substance(Molecule.sodiumChloride, 1000),
+        new Substance(Molecule.potassiumChloride, 150),
+        new Substance(Molecule.magnesiumMalate, 150),
+      ),
+      mass,
+    );
   }
 
-  get osmolesPerMole() {
-    let total = 0;
-    let totalProportions = 0;
-    for (const substance of this.substances) {
-      total += substance.proportion * substance.molecule.osmolesPerMole;
-      totalProportions += substance.proportion;
-    }
-    return total / totalProportions;
+  // l -> g/l
+  concentration(volume) {
+    return this.mass / volume;
+  }
+
+  // l -> Osm/l
+  osmolarity(volume) {
+    return this.substances.osmolarity(this.concentration(volume));
   }
 }
 
 defineSchema(Mixture, {
   name: primitive(),
-  substances: array(schema(Substance)),
+  substances: array(schema(Substance), Substances),
   mass: primitive(),
 });
+
+export class Mixtures extends Array {
+  get totalMass() {
+    let mass = 0;
+    for (const mixture of this) {
+      mass += mixture.mass;
+    }
+    return mass;
+  }
+
+  get molarMass() {
+    let molarMass = 0;
+    for (const mixture of this) {
+      molarMass += mixture.mass * mixture.substances.molarMass;
+    }
+    return molarMass / this.totalMass;
+  }
+
+  // l -> g/l
+  totalConcentration(volume) {
+    let concentration = 0;
+    for (const mixture of this) {
+      concentration += mixture.concentration(volume);
+    }
+    return concentration;
+  }
+
+  // l -> Osm/l
+  totalOsmolarity(volume) {
+    let osmolarity = 0;
+    for (const mixture of this) {
+      osmolarity += mixture.osmolarity(volume);
+    }
+    return osmolarity;
+  }
+
+  molarMassPercentage(atom) {
+    let percentage = 0;
+    for (const mixture of this) {
+      percentage += mixture.mass * mixture.substances.molarMassPercentage(atom);
+    }
+    return percentage / this.totalMass;
+  }
+}
