@@ -78,7 +78,8 @@ const concentrations = computed(() => {
 
 const osmolarities = computed(() => {
   return concentrations.value.map(
-    (concentration, index) => concentration / props.mixtures[index].molarMass,
+    (concentration, index) =>
+      (concentration / props.mixtures[index].molarMass) * props.mixtures[index].osmolesPerMole,
   );
 });
 

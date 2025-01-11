@@ -37,9 +37,10 @@ defineSchema(Atoms, {
 });
 
 export class Molecule {
-  constructor(name, formula) {
+  constructor(name, formula, osmolesPerMole = 1) {
     this.name = name;
     this.formula = formula;
+    this.osmolesPerMole = osmolesPerMole;
   }
 
   static glucose = new Molecule('Glucose', [
@@ -60,10 +61,11 @@ export class Molecule {
     new Atoms(Atom.oxygen, 11),
   ]);
 
-  static sodiumChloride = new Molecule('Sodium chloride', [
-    new Atoms(Atom.sodium, 1),
-    new Atoms(Atom.chlorine, 1),
-  ]);
+  static sodiumChloride = new Molecule(
+    'Sodium chloride',
+    [new Atoms(Atom.sodium, 1), new Atoms(Atom.chlorine, 1)],
+    2,
+  );
 
   // g/mol
   get molarMass() {
@@ -78,6 +80,7 @@ export class Molecule {
 defineSchema(Molecule, {
   name: primitive(),
   formula: array(schema(Atoms)),
+  osmolesPerMole: primitive(),
 });
 
 export class Substance {
@@ -105,13 +108,23 @@ export class Mixture {
 
   // g/mol
   get molarMass() {
-    let mass = 0;
-    let prop = 0;
+    let total = 0;
+    let totalProportions = 0;
     for (const substance of this.substances) {
-      mass += substance.proportion * substance.molecule.molarMass;
-      prop += substance.proportion;
+      total += substance.proportion * substance.molecule.molarMass;
+      totalProportions += substance.proportion;
     }
-    return mass / prop;
+    return total / totalProportions;
+  }
+
+  get osmolesPerMole() {
+    let total = 0;
+    let totalProportions = 0;
+    for (const substance of this.substances) {
+      total += substance.proportion * substance.molecule.osmolesPerMole;
+      totalProportions += substance.proportion;
+    }
+    return total / totalProportions;
   }
 }
 
