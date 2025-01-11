@@ -29,10 +29,18 @@
     <Mixtures :mixtures="bottle.carbohydrates" :volume="bottle.volume" />
 
     <div class="flex gap-4">
-      <Carbohydrate name="Glucose" :mass="100" :percentage="0.5">
+      <Carbohydrate
+        name="Glucose"
+        :mass="bottle.carbohydrates.glucosePercentage * bottle.carbohydrates.totalMass || 0"
+        :ratio="1"
+      >
         <Glucose class="w-full" />
       </Carbohydrate>
-      <Carbohydrate name="Fructose" :mass="100" :percentage="0.5">
+      <Carbohydrate
+        name="Fructose"
+        :mass="bottle.carbohydrates.fructosePercentage * bottle.carbohydrates.totalMass || 0"
+        :ratio="bottle.carbohydrates.fructosePercentage / bottle.carbohydrates.glucosePercentage"
+      >
         <Fructose class="w-full" />
       </Carbohydrate>
     </div>

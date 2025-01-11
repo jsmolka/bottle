@@ -1,4 +1,5 @@
 import { array, defineSchema, primitive, schema } from '@/utils/persist';
+import { merge } from 'lodash-es';
 
 export class Atom {
   constructor(number, name, symbol, mass) {
@@ -42,10 +43,21 @@ defineSchema(Atoms, {
 });
 
 export class Molecule {
-  constructor(name, formula, osmolesPerMole) {
+  constructor(name, formula, options = {}) {
+    options = merge(
+      {
+        osmolesPerMole: 1,
+        glucosePercentage: 0,
+        fructosePercentage: 0,
+      },
+      options,
+    );
+
     this.name = name;
     this.formula = formula;
-    this.osmolesPerMole = osmolesPerMole; // Osm/mol
+    this.osmolesPerMole = options.osmolesPerMole; // Osm/mol
+    this.glucosePercentage = options.glucosePercentage;
+    this.fructosePercentage = options.fructosePercentage;
   }
 
   static maltodextrin(n) {
@@ -56,7 +68,7 @@ export class Molecule {
         new Atoms(Atom.hydrogen, 10 * n + 2),
         new Atoms(Atom.oxygen, 5 * n + 1),
       ],
-      1,
+      { glucosePercentage: 1 },
     );
   }
 
@@ -67,7 +79,7 @@ export class Molecule {
       new Atoms(Atom.hydrogen, 12),
       new Atoms(Atom.oxygen, 6),
     ], // prettier-ignore
-    1,
+    { fructosePercentage: 1 },
   );
 
   static sucrose = new Molecule(
@@ -77,7 +89,7 @@ export class Molecule {
       new Atoms(Atom.hydrogen, 22),
       new Atoms(Atom.oxygen, 11)
     ], // prettier-ignore
-    1,
+    { glucosePercentage: 0.5, fructosePercentage: 0.5 },
   );
 
   static isomaltulose = new Molecule(
@@ -87,7 +99,7 @@ export class Molecule {
       new Atoms(Atom.hydrogen, 22),
       new Atoms(Atom.oxygen, 11)
     ], // prettier-ignore
-    1,
+    { glucosePercentage: 0.5, fructosePercentage: 0.5 },
   );
 
   static sodiumChloride = new Molecule(
@@ -96,7 +108,7 @@ export class Molecule {
       new Atoms(Atom.sodium, 1),
       new Atoms(Atom.chlorine, 1)
     ], // prettier-ignore
-    2,
+    { osmolesPerMole: 2 },
   );
 
   static sodiumCitrate = new Molecule(
@@ -107,7 +119,7 @@ export class Molecule {
       new Atoms(Atom.hydrogen, 5),
       new Atoms(Atom.oxygen, 7),
     ],
-    4,
+    { osmolesPerMole: 4 },
   );
 
   static potassiumChloride = new Molecule(
@@ -116,7 +128,7 @@ export class Molecule {
       new Atoms(Atom.potassium, 1),
       new Atoms(Atom.chlorine, 1)
     ], // prettier-ignore
-    2,
+    { osmolesPerMole: 2 },
   );
 
   static potassiumCitrate = new Molecule(
@@ -127,7 +139,7 @@ export class Molecule {
       new Atoms(Atom.hydrogen, 5),
       new Atoms(Atom.oxygen, 7),
     ],
-    4,
+    { osmolesPerMole: 4 },
   );
 
   static magnesiumChloride = new Molecule(
@@ -136,7 +148,7 @@ export class Molecule {
       new Atoms(Atom.magnesium, 1),
       new Atoms(Atom.chlorine, 2)
     ], // prettier-ignore
-    3,
+    { osmolesPerMole: 3 },
   );
 
   static magnesiumCitrate = new Molecule(
@@ -147,7 +159,7 @@ export class Molecule {
       new Atoms(Atom.hydrogen, 6),
       new Atoms(Atom.oxygen, 7),
     ],
-    2,
+    { osmolesPerMole: 2 },
   );
 
   static magnesiumMalate = new Molecule(
@@ -158,7 +170,7 @@ export class Molecule {
       new Atoms(Atom.hydrogen, 4),
       new Atoms(Atom.oxygen, 5),
     ],
-    2,
+    { osmolesPerMole: 2 },
   );
 
   // g/mol
@@ -190,6 +202,8 @@ defineSchema(Molecule, {
   name: primitive(),
   formula: array(schema(Atoms)),
   osmolesPerMole: primitive(),
+  glucosePercentage: primitive(),
+  fructosePercentage: primitive(),
 });
 
 export class Substance {
@@ -242,6 +256,22 @@ export class Substances extends Array {
       molarMass += substance.proportion * substance.molecule.molarMassPercentage(atom);
     }
     return molarMass / this.totalProportion;
+  }
+
+  get glucosePercentage() {
+    let percentage = 0;
+    for (const substance of this) {
+      percentage += substance.proportion * substance.molecule.glucosePercentage;
+    }
+    return percentage / this.totalProportion;
+  }
+
+  get fructosePercentage() {
+    let percentage = 0;
+    for (const substance of this) {
+      percentage += substance.proportion * substance.molecule.fructosePercentage;
+    }
+    return percentage / this.totalProportion;
   }
 }
 
@@ -324,6 +354,22 @@ export class Mixtures extends Array {
     let percentage = 0;
     for (const mixture of this) {
       percentage += mixture.mass * mixture.substances.molarMassPercentage(atom);
+    }
+    return percentage / this.totalMass;
+  }
+
+  get glucosePercentage() {
+    let percentage = 0;
+    for (const mixture of this) {
+      percentage += mixture.mass * mixture.substances.glucosePercentage;
+    }
+    return percentage / this.totalMass;
+  }
+
+  get fructosePercentage() {
+    let percentage = 0;
+    for (const mixture of this) {
+      percentage += mixture.mass * mixture.substances.fructosePercentage;
     }
     return percentage / this.totalMass;
   }

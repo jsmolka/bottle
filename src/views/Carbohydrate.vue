@@ -2,14 +2,16 @@
   <div class="flex flex-col items-center">
     <slot />
     <div class="text-shade-1 font-semibold">{{ name }}</div>
-    <div>{{ mass }} g ({{ 100 * percentage }}%)</div>
+    <div>{{ format(mass) }} g (ratio {{ format(ratio, 2) }})</div>
   </div>
 </template>
 
 <script setup>
+import { format } from '@/utils/format';
+
 defineProps({
   name: { type: String, required: true },
   mass: { type: Number, required: true },
-  percentage: { type: Number, required: true },
+  ratio: { type: Number, required: true },
 });
 </script>
