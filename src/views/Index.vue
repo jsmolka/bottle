@@ -49,7 +49,7 @@
       <Electrolyte
         v-for="atom of [Atom.sodium, Atom.potassium, Atom.magnesium]"
         :atom="atom"
-        :mass="bottle.electrolytes.molarMassPercentage(atom) * bottle.electrolytes.totalMass"
+        :mass="bottle.electrolytes.molarMassPercentage(atom) * bottle.electrolytes.totalMass || 0"
       />
     </div>
 
