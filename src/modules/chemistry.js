@@ -54,6 +54,17 @@ export class Molecule {
     new Atoms(Atom.oxygen, 6),
   ]);
 
+  static sucrose = new Molecule('Sucrose', [
+    new Atoms(Atom.carbon, 12),
+    new Atoms(Atom.hydrogen, 22),
+    new Atoms(Atom.oxygen, 11),
+  ]);
+
+  static sodiumChloride = new Molecule('Sodium chloride', [
+    new Atoms(Atom.sodium, 1),
+    new Atoms(Atom.chlorine, 1),
+  ]);
+
   // g/mol
   get molarMass() {
     let mass = 0;
@@ -82,13 +93,14 @@ defineSchema(Substance, {
 });
 
 export class Mixture {
-  constructor(substances, mass) {
+  constructor(name, substances, mass) {
+    this.name = name;
     this.substances = substances;
     this.mass = mass; // g
   }
 
   static fromMolecule(molecule, mass) {
-    return new Mixture([new Substance(molecule, 1)], mass);
+    return new Mixture(molecule.name, [new Substance(molecule, 1)], mass);
   }
 
   // g/mol
@@ -104,6 +116,7 @@ export class Mixture {
 }
 
 defineSchema(Mixture, {
+  name: primitive(),
   substances: array(schema(Substance)),
   mass: primitive(),
 });

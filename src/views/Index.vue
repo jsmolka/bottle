@@ -20,49 +20,7 @@
         <PhPlus class="size-4" />
       </Button>
     </h1>
-    <TableWrapper>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead class="w-20 min-w-20 text-right">Mass</TableHead>
-            <TableHead class="w-32 min-w-32 text-right hidden sm:table-cell">
-              Concentration
-            </TableHead>
-            <TableHead class="w-32 min-w-32 text-right">Osmolarity</TableHead>
-            <TableHead class="w-0" />
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow v-for="_ in [1, 2, 3, 4]">
-            <TableCell>Maltodextrin (n = 5)</TableCell>
-            <TableCell>
-              <InputNumber
-                class="text-right"
-                :model-value="1000"
-                :min="0"
-                :max="1000"
-                suffix=" g"
-              />
-            </TableCell>
-            <TableCell class="text-right hidden sm:table-cell">10000 g/l</TableCell>
-            <TableCell class="text-right">10000 mOsm/l</TableCell>
-            <TableCell>
-              <Button variant="ghost" size="icon" tabindex="-1">
-                <PhTrash class="size-4" />
-              </Button>
-            </TableCell>
-          </TableRow>
-          <TableRow class="border-t-2 border-shade-4">
-            <TableCell>Total</TableCell>
-            <TableCell class="text-right">10000 g</TableCell>
-            <TableCell class="text-right hidden sm:table-cell">10000 g/l</TableCell>
-            <TableCell class="text-right">10000 mOsm/l</TableCell>
-            <TableCell />
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableWrapper>
+    <Mixtures :mixtures="bottle.carbohydrates" :volume="bottle.volume / 1000" />
 
     <div class="flex gap-4">
       <Carbohydrate name="Glucose" :mass="100" :percentage="0.5">
@@ -79,49 +37,7 @@
         <PhPlus class="size-4" />
       </Button>
     </h1>
-    <TableWrapper>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead class="w-20 min-w-20 text-right">Mass</TableHead>
-            <TableHead class="w-32 min-w-32 text-right hidden sm:table-cell">
-              Concentration
-            </TableHead>
-            <TableHead class="w-32 min-w-32 text-right">Osmolarity</TableHead>
-            <TableHead class="w-0" />
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow v-for="_ in [1, 2, 3, 4]">
-            <TableCell>Sodium chloride</TableCell>
-            <TableCell>
-              <InputNumber
-                class="text-right"
-                :model-value="1000"
-                :min="0"
-                :max="1000"
-                suffix=" g"
-              />
-            </TableCell>
-            <TableCell class="text-right hidden sm:table-cell">10000 g/l</TableCell>
-            <TableCell class="text-right">10000 mOsm/l</TableCell>
-            <TableCell>
-              <Button variant="ghost" size="icon" tabindex="-1">
-                <PhTrash class="size-4" />
-              </Button>
-            </TableCell>
-          </TableRow>
-          <TableRow class="border-t-2 border-shade-4">
-            <TableCell>Total</TableCell>
-            <TableCell class="text-right">10000 g</TableCell>
-            <TableCell class="text-right hidden sm:table-cell">10000 g/l</TableCell>
-            <TableCell class="text-right">10000 mOsm/l</TableCell>
-            <TableCell />
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableWrapper>
+    <Mixtures :mixtures="bottle.electrolytes" :volume="bottle.volume / 1000" />
 
     <div class="flex flex-wrap justify-center gap-8 mx-auto">
       <Electrolyte :atom="Atom.sodium" :mass="1.5" />
@@ -173,22 +89,14 @@ import { Form, FormItem } from '@/components/ui/form';
 import { InputNumber } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Link } from '@/components/ui/link';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableWrapper,
-} from '@/components/ui/table';
 import { Atom } from '@/modules/chemistry';
 import { useBottleStore } from '@/stores/bottle';
 import Carbohydrate from '@/views/Carbohydrate.vue';
 import Electrolyte from '@/views/Electrolyte.vue';
 import Fructose from '@/views/Fructose.vue';
 import Glucose from '@/views/Glucose.vue';
-import { PhPlus, PhTrash } from '@phosphor-icons/vue';
+import Mixtures from '@/views/Mixtures.vue';
+import { PhPlus } from '@phosphor-icons/vue';
 import { storeToRefs } from 'pinia';
 
 const { bottle } = storeToRefs(useBottleStore());
