@@ -4,7 +4,7 @@
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
-          <TableHead class="w-20 min-w-20 text-right">
+          <TableHead class="w-24 min-w-24 text-right">
             <div class="px-2 border-x border-transparent">Mass</div>
           </TableHead>
           <TableHead class="w-32 min-w-32 text-right hidden sm:table-cell">
@@ -15,7 +15,7 @@
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow v-for="(mixture, index) in props.mixtures">
+        <TableRow v-for="(mixture, index) in mixtures">
           <TableCell>{{ mixture.name }}</TableCell>
           <TableCell>
             <InputNumber
@@ -23,7 +23,6 @@
               v-model="mixture.mass"
               :min="0"
               :max="1000"
-              :precision="2"
               suffix=" g"
             />
           </TableCell>
@@ -69,10 +68,11 @@ import {
   TableRow,
   TableWrapper,
 } from '@/components/ui/table';
+import { Mixtures } from '@/modules/chemistry';
 import { PhTrash } from '@phosphor-icons/vue';
 
-const props = defineProps({
-  mixtures: { type: Array, required: true },
+defineProps({
+  mixtures: { type: Mixtures, required: true },
   volume: { type: Number, required: true },
 });
 
