@@ -1,6 +1,6 @@
 {
   "name": "bottle",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A companion app for the bottle post.",
   "private": true,
   "type": "module",
