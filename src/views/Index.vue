@@ -111,61 +111,10 @@
       </g>
     </svg>
     <figure class="flex flex-col gap-2">
-      <TableWrapper>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead class="text-right">Carbohydrates</TableHead>
-              <TableHead class="text-right">Osmolality</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>Coca Cola</TableCell>
-              <TableCell class="text-right">110 g/kg</TableCell>
-              <TableCell class="text-right">500 mOsm/kg</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Fanta</TableCell>
-              <TableCell class="text-right">100 g/kg</TableCell>
-              <TableCell class="text-right">400 mOsm/kg</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Fruit juice</TableCell>
-              <TableCell class="text-right">120 g/kg</TableCell>
-              <TableCell class="text-right">700 mOsm/kg</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Gatorade</TableCell>
-              <TableCell class="text-right">60 g/kg</TableCell>
-              <TableCell class="text-right">350 mOsm/kg</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Isostar</TableCell>
-              <TableCell class="text-right">70 g/kg</TableCell>
-              <TableCell class="text-right">300 mOsm/kg</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Powerade</TableCell>
-              <TableCell class="text-right">80 g/kg</TableCell>
-              <TableCell class="text-right">350 mOsm/kg</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Red Bull</TableCell>
-              <TableCell class="text-right">110 g/kg</TableCell>
-              <TableCell class="text-right">600 mOsm/kg</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Sprite</TableCell>
-              <TableCell class="text-right">100 g/kg</TableCell>
-              <TableCell class="text-right">500 mOsm/kg</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableWrapper>
+      <OsmolarityReference />
       <figcaption class="text-xs text-center">
-        Based on a <Link :href="osmolarityPdf">study by Mettler et al.</Link>
+        Based on a <Link :href="osmolarityPdf">study by Mettler et al.</Link> and
+        <Link href="https://kg-m3.com">density</Link>
       </figcaption>
     </figure>
   </Form>
@@ -179,15 +128,6 @@ import { Form, FormItem } from '@/components/ui/form';
 import { InputNumber } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Link } from '@/components/ui/link';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableWrapper,
-} from '@/components/ui/table';
 import { Atom } from '@/modules/chemistry';
 import { useBottleStore } from '@/stores/bottle';
 import { format } from '@/utils/format';
@@ -199,6 +139,7 @@ import ElectrolyteDialog from '@/views/ElectrolyteDialog.vue';
 import Fructose from '@/views/Fructose.vue';
 import Glucose from '@/views/Glucose.vue';
 import Mixtures from '@/views/Mixtures.vue';
+import OsmolarityReference from '@/views/OsmolarityReference.vue';
 import { PhPlus } from '@phosphor-icons/vue';
 import { useResizeObserver } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
