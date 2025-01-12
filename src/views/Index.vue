@@ -111,7 +111,7 @@
       </g>
     </svg>
     <figure class="flex flex-col gap-2">
-      <OsmolarityReference />
+      <Osmolarities />
       <figcaption class="text-xs text-center">
         Based on a <Link :href="osmolarityPdf">study by Mettler et al.</Link> and
         <Link href="https://kg-m3.com">density</Link>
@@ -139,7 +139,7 @@ import ElectrolyteDialog from '@/views/ElectrolyteDialog.vue';
 import Fructose from '@/views/Fructose.vue';
 import Glucose from '@/views/Glucose.vue';
 import Mixtures from '@/views/Mixtures.vue';
-import OsmolarityReference from '@/views/OsmolarityReference.vue';
+import Osmolarities from '@/views/Osmolarities.vue';
 import { PhPlus } from '@phosphor-icons/vue';
 import { useResizeObserver } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
