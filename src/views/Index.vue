@@ -110,16 +110,84 @@
         <text x="100%" y="84" text-anchor="end">>600</text>
       </g>
     </svg>
+    <figure class="flex flex-col gap-2">
+      <TableWrapper>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead class="text-right">Carbohydrates</TableHead>
+              <TableHead class="text-right">Osmolality</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>Coca Cola</TableCell>
+              <TableCell class="text-right">110 g/kg</TableCell>
+              <TableCell class="text-right">500 mOsm/kg</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Fanta</TableCell>
+              <TableCell class="text-right">100 g/kg</TableCell>
+              <TableCell class="text-right">400 mOsm/kg</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Fruit juice</TableCell>
+              <TableCell class="text-right">120 g/kg</TableCell>
+              <TableCell class="text-right">700 mOsm/kg</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Gatorade</TableCell>
+              <TableCell class="text-right">60 g/kg</TableCell>
+              <TableCell class="text-right">350 mOsm/kg</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Isostar</TableCell>
+              <TableCell class="text-right">70 g/kg</TableCell>
+              <TableCell class="text-right">300 mOsm/kg</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Powerade</TableCell>
+              <TableCell class="text-right">80 g/kg</TableCell>
+              <TableCell class="text-right">350 mOsm/kg</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Red Bull</TableCell>
+              <TableCell class="text-right">110 g/kg</TableCell>
+              <TableCell class="text-right">600 mOsm/kg</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Sprite</TableCell>
+              <TableCell class="text-right">100 g/kg</TableCell>
+              <TableCell class="text-right">500 mOsm/kg</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableWrapper>
+      <figcaption class="text-xs text-center">
+        Based on a <Link :href="osmolarityPdf">study by Mettler et al.</Link>
+      </figcaption>
+    </figure>
   </Form>
 </template>
 
 <script setup>
+import osmolarityPdf from '@/assets/pdf/osmolality.pdf';
 import Logo from '@/components/Logo.vue';
 import { Button } from '@/components/ui/button';
 import { Form, FormItem } from '@/components/ui/form';
 import { InputNumber } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Link } from '@/components/ui/link';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  TableWrapper,
+} from '@/components/ui/table';
 import { Atom } from '@/modules/chemistry';
 import { useBottleStore } from '@/stores/bottle';
 import { clamp } from '@/utils/numeric';
