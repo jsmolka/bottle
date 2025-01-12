@@ -14,7 +14,7 @@
       <InputNumber
         :model-value="1000 * bottle.volume"
         @update:model-value="bottle.volume = $event / 1000"
-        :min="1"
+        :min="10"
         :max="2000"
         suffix=" ml"
       />

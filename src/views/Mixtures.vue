@@ -4,10 +4,10 @@
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
-          <TableHead class="w-24 min-w-24 text-right">
+          <TableHead class="w-[5.25rem] min-w-[5.25rem] text-right">
             <div class="px-2 border-x border-transparent">Mass</div>
           </TableHead>
-          <TableHead class="w-32 min-w-32 text-right hidden sm:table-cell">
+          <TableHead class="w-[7.50rem] min-w-[7.50rem] text-right hidden sm:table-cell">
             Concentration
           </TableHead>
           <TableHead class="w-32 min-w-32 text-right">Osmolarity</TableHead>
