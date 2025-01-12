@@ -207,42 +207,44 @@ defineSchema(Molecule, {
 });
 
 export class Substance {
-  constructor(molecule, proportion) {
+  constructor(molecule, ratio) {
     this.molecule = molecule;
-    this.proportion = proportion;
+    this.ratio = ratio;
   }
 }
 
 defineSchema(Substance, {
   molecule: schema(Molecule),
-  proportion: primitive(),
+  ratio: primitive(),
 });
 
 export class Substances extends Array {
-  get totalProportion() {
-    let proportion = 0;
+  get totalRatio() {
+    let ratio = 0;
     for (const substance of this) {
-      proportion += substance.proportion;
+      ratio += substance.ratio;
     }
-    return proportion;
+    return ratio;
   }
 
   // g/mol
   get molarMass() {
     let molarMass = 0;
     for (const substance of this) {
-      molarMass += substance.proportion * substance.molecule.molarMass;
+      molarMass += substance.ratio * substance.molecule.molarMass;
     }
-    return molarMass / this.totalProportion;
+    const totalRatio = this.totalRatio;
+    return totalRatio > 0 ? molarMass / totalRatio : 0;
   }
 
   // Osm/mol
   get osmolesPerMole() {
     let osmolesPerMole = 0;
     for (const substance of this) {
-      osmolesPerMole += substance.proportion * substance.molecule.osmolesPerMole;
+      osmolesPerMole += substance.ratio * substance.molecule.osmolesPerMole;
     }
-    return osmolesPerMole / this.totalProportion;
+    const totalRatio = this.totalRatio;
+    return totalRatio > 0 ? osmolesPerMole / totalRatio : 0;
   }
 
   // g/l -> Osm/l
@@ -253,25 +255,28 @@ export class Substances extends Array {
   molarMassPercentage(atom) {
     let molarMass = 0;
     for (const substance of this) {
-      molarMass += substance.proportion * substance.molecule.molarMassPercentage(atom);
+      molarMass += substance.ratio * substance.molecule.molarMassPercentage(atom);
     }
-    return molarMass / this.totalProportion;
+    const totalRatio = this.totalRatio;
+    return totalRatio > 0 ? molarMass / totalRatio : 0;
   }
 
   get glucosePercentage() {
     let percentage = 0;
     for (const substance of this) {
-      percentage += substance.proportion * substance.molecule.glucosePercentage;
+      percentage += substance.ratio * substance.molecule.glucosePercentage;
     }
-    return percentage / this.totalProportion;
+    const totalRatio = this.totalRatio;
+    return totalRatio > 0 ? percentage / totalRatio : 0;
   }
 
   get fructosePercentage() {
     let percentage = 0;
     for (const substance of this) {
-      percentage += substance.proportion * substance.molecule.fructosePercentage;
+      percentage += substance.ratio * substance.molecule.fructosePercentage;
     }
-    return percentage / this.totalProportion;
+    const totalRatio = this.totalRatio;
+    return totalRatio > 0 ? percentage / totalRatio : 0;
   }
 }
 
@@ -329,7 +334,8 @@ export class Mixtures extends Array {
     for (const mixture of this) {
       molarMass += mixture.mass * mixture.substances.molarMass;
     }
-    return molarMass / this.totalMass;
+    const totalMass = this.totalMass;
+    return totalMass > 0 ? molarMass / totalMass : 0;
   }
 
   // l -> g/l
@@ -355,7 +361,8 @@ export class Mixtures extends Array {
     for (const mixture of this) {
       percentage += mixture.mass * mixture.substances.molarMassPercentage(atom);
     }
-    return percentage / this.totalMass;
+    const totalMass = this.totalMass;
+    return totalMass > 0 ? percentage / totalMass : 0;
   }
 
   get glucosePercentage() {
@@ -363,7 +370,8 @@ export class Mixtures extends Array {
     for (const mixture of this) {
       percentage += mixture.mass * mixture.substances.glucosePercentage;
     }
-    return percentage / this.totalMass;
+    const totalMass = this.totalMass;
+    return totalMass > 0 ? percentage / totalMass : 0;
   }
 
   get fructosePercentage() {
@@ -371,6 +379,7 @@ export class Mixtures extends Array {
     for (const mixture of this) {
       percentage += mixture.mass * mixture.substances.fructosePercentage;
     }
-    return percentage / this.totalMass;
+    const totalMass = this.totalMass;
+    return totalMass > 0 ? percentage / totalMass : 0;
   }
 }

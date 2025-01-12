@@ -1,7 +1,17 @@
-export function format(value, decimals = 0) {
+import { merge } from 'lodash-es';
+
+export function format(value, options = {}) {
+  options = merge(
+    {
+      minDigits: 0,
+      maxDigits: 0,
+    },
+    options,
+  );
+
   return value.toLocaleString(undefined, {
     useGrouping: false,
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
+    minimumFractionDigits: options.minDigits,
+    maximumFractionDigits: options.maxDigits,
   });
 }

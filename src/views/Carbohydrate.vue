@@ -2,7 +2,12 @@
   <div class="flex flex-col items-center">
     <slot />
     <div class="text-shade-1 font-semibold">{{ name }}</div>
-    <div>{{ format(mass) }} g (ratio {{ format(ratio, 2) }})</div>
+    <div>
+      {{ format(mass) }} g
+      <span v-if="ratio > 0">
+        ({{ format(ratio, { maxDigits: 2 }) }} {{ ratio === 1 ? 'part' : 'parts' }})
+      </span>
+    </div>
   </div>
 </template>
 

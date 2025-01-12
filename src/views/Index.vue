@@ -35,15 +35,15 @@
     <div class="flex gap-4">
       <Carbohydrate
         name="Glucose"
-        :mass="bottle.carbohydrates.glucosePercentage * bottle.carbohydrates.totalMass || 0"
-        :ratio="1"
+        :mass="glucosePercentage * carbohydrateTotalMass"
+        :ratio="glucoseFructoseRatio.glucose"
       >
         <Glucose class="w-full" />
       </Carbohydrate>
       <Carbohydrate
         name="Fructose"
-        :mass="bottle.carbohydrates.fructosePercentage * bottle.carbohydrates.totalMass || 0"
-        :ratio="bottle.carbohydrates.fructosePercentage / bottle.carbohydrates.glucosePercentage"
+        :mass="fructosePercentage * carbohydrateTotalMass"
+        :ratio="glucoseFructoseRatio.fructose"
       >
         <Fructose class="w-full" />
       </Carbohydrate>
@@ -65,7 +65,7 @@
       <Electrolyte
         v-for="atom of [Atom.sodium, Atom.potassium, Atom.magnesium]"
         :atom="atom"
-        :mass="bottle.electrolytes.molarMassPercentage(atom) * bottle.electrolytes.totalMass || 0"
+        :mass="bottle.electrolytes.molarMassPercentage(atom) * bottle.electrolytes.totalMass"
       />
     </div>
 
@@ -73,7 +73,7 @@
     <svg ref="osmolarityChart" height="86" fill="currentColor">
       <g>
         <text x="0%" y="14" text-anchor="start">Hypotonic</text>
-        <text x="50%" y="14" text-anchor="middle">{{ Math.round(1000 * osmolarity) }} mOsm/l</text>
+        <text x="50%" y="14" text-anchor="middle">{{ format(1000 * osmolarity) }} mOsm/l</text>
         <text x="100%" y="14" text-anchor="end">Hypertonic</text>
       </g>
       <g>
@@ -190,7 +190,8 @@ import {
 } from '@/components/ui/table';
 import { Atom } from '@/modules/chemistry';
 import { useBottleStore } from '@/stores/bottle';
-import { clamp } from '@/utils/numeric';
+import { format } from '@/utils/format';
+import { clamp, isZero } from '@/utils/numeric';
 import Carbohydrate from '@/views/Carbohydrate.vue';
 import CarbohydrateDialog from '@/views/CarbohydrateDialog.vue';
 import Electrolyte from '@/views/Electrolyte.vue';
@@ -204,6 +205,26 @@ import { storeToRefs } from 'pinia';
 import { computed, ref, useTemplateRef } from 'vue';
 
 const { bottle } = storeToRefs(useBottleStore());
+
+const carbohydrateTotalMass = computed(() => {
+  return bottle.value.carbohydrates.totalMass;
+});
+
+const glucosePercentage = computed(() => {
+  return bottle.value.carbohydrates.glucosePercentage;
+});
+
+const fructosePercentage = computed(() => {
+  return bottle.value.carbohydrates.fructosePercentage;
+});
+
+const glucoseFructoseRatio = computed(() => {
+  if (isZero(glucosePercentage.value) || isZero(fructosePercentage.value)) {
+    return { glucose: 0, fructose: 0 };
+  } else {
+    return { glucose: 1, fructose: fructosePercentage.value / glucosePercentage.value };
+  }
+});
 
 const osmolarity = computed(() => {
   return bottle.value.osmolarity;

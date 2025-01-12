@@ -12,10 +12,11 @@ export class Bottle {
   }
 
   get osmolarity() {
-    return (
-      this.carbohydrates.totalOsmolarity(this.volume) +
-      this.electrolytes.totalOsmolarity(this.volume)
-    );
+    let osmolarity = 0;
+    for (const mixtures of [this.carbohydrates, this.electrolytes]) {
+      osmolarity += mixtures.totalOsmolarity(this.volume);
+    }
+    return osmolarity;
   }
 }
 

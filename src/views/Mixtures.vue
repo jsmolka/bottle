@@ -10,7 +10,7 @@
           <TableHead class="w-[7.50rem] min-w-[7.50rem] text-right hidden sm:table-cell">
             Concentration
           </TableHead>
-          <TableHead class="w-32 min-w-32 text-right">Osmolarity</TableHead>
+          <TableHead class="w-[7.50rem] min-w-[7.50rem] text-right">Osmolarity</TableHead>
           <TableHead class="w-0" />
         </TableRow>
       </TableHeader>
