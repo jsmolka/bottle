@@ -8,7 +8,7 @@ export class Bottle {
       Mixture.molecule(Molecule.maltodextrin(5), 60),
       Mixture.molecule(Molecule.fructose, 30),
     );
-    this.electrolytes = Mixtures.of(Mixture.molecule(Molecule.sodiumChloride, 5));
+    this.electrolytes = Mixtures.of(Mixture.molecule(Molecule.sodiumChloride, 4));
   }
 
   get osmolarity() {
