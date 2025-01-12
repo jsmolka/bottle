@@ -22,9 +22,13 @@
 
     <h1 class="flex justify-between items-center gap-4">
       Carbohydrates
-      <Button size="icon" tabindex="-1">
-        <PhPlus class="size-4" />
-      </Button>
+      <CarbohydrateDialog>
+        <template #trigger>
+          <Button size="icon" tabindex="-1">
+            <PhPlus class="size-4" />
+          </Button>
+        </template>
+      </CarbohydrateDialog>
     </h1>
     <Mixtures :mixtures="bottle.carbohydrates" :volume="bottle.volume" />
 
@@ -47,9 +51,13 @@
 
     <h1 class="flex justify-between items-center gap-4">
       Electrolytes
-      <Button size="icon" tabindex="-1">
-        <PhPlus class="size-4" />
-      </Button>
+      <ElectrolyteDialog>
+        <template #trigger>
+          <Button size="icon" tabindex="-1">
+            <PhPlus class="size-4" />
+          </Button>
+        </template>
+      </ElectrolyteDialog>
     </h1>
     <Mixtures :mixtures="bottle.electrolytes" :volume="bottle.volume" />
 
@@ -116,7 +124,9 @@ import { Atom } from '@/modules/chemistry';
 import { useBottleStore } from '@/stores/bottle';
 import { clamp } from '@/utils/numeric';
 import Carbohydrate from '@/views/Carbohydrate.vue';
+import CarbohydrateDialog from '@/views/CarbohydrateDialog.vue';
 import Electrolyte from '@/views/Electrolyte.vue';
+import ElectrolyteDialog from '@/views/ElectrolyteDialog.vue';
 import Fructose from '@/views/Fructose.vue';
 import Glucose from '@/views/Glucose.vue';
 import Mixtures from '@/views/Mixtures.vue';
