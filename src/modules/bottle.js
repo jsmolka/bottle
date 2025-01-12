@@ -7,14 +7,8 @@ export class Bottle {
     this.carbohydrates = Mixtures.of(
       Mixture.molecule(Molecule.maltodextrin(5), 60),
       Mixture.molecule(Molecule.fructose, 30),
-      Mixture.molecule(Molecule.sucrose, 30),
     );
-    this.electrolytes = Mixtures.of(
-      Mixture.molecule(Molecule.sodiumChloride, 5),
-      Mixture.molecule(Molecule.potassiumChloride, 1),
-      Mixture.molecule(Molecule.magnesiumMalate, 1),
-      Mixture.lmnt(5),
-    );
+    this.electrolytes = Mixtures.of(Mixture.molecule(Molecule.sodiumChloride, 5));
   }
 
   get osmolarity() {
