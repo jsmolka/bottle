@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center gap-4">
       <Logo class="size-8 text-shade-1" />
       <div>
-        A companion app for the
+        A companion web app for the
         <Link href="https://www.smolka.dev/posts/the-bottle">bottle post</Link>.
       </div>
     </div>
