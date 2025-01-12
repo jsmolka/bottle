@@ -5,7 +5,7 @@
         <TableRow>
           <TableHead>Name</TableHead>
           <TableHead class="text-right">Osmolality</TableHead>
-          <TableHead class="text-right">Density</TableHead>
+          <TableHead class="text-right hidden sm:table-cell">Density</TableHead>
           <TableHead class="text-right">Osmolarity</TableHead>
         </TableRow>
       </TableHeader>
@@ -13,7 +13,7 @@
         <TableRow v-for="item in data">
           <TableCell>{{ item.name }}</TableCell>
           <TableCell class="text-right">{{ format(item.osmolality) }} mOsm/kg</TableCell>
-          <TableCell class="text-right">
+          <TableCell class="text-right hidden sm:table-cell">
             {{ format(item.density, { minDigits: 3, maxDigits: 3 }) }} kg/l
           </TableCell>
           <TableCell class="text-right">
