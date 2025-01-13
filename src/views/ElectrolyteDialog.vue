@@ -52,7 +52,7 @@ import { Form, FormItem } from '@/components/ui/form';
 import { InputNumber } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectItemText } from '@/components/ui/select';
-import { Mixture, Molecule } from '@/modules/chemistry';
+import { Mixture } from '@/modules/chemistry';
 import { useBottleStore } from '@/stores/bottle';
 import { Enum } from '@/utils/enum';
 import { storeToRefs } from 'pinia';
@@ -93,35 +93,23 @@ const reset = () => {
 reset();
 
 const add = () => {
-  let molecule = null;
+  let mixture = null;
   switch (electrolyte.value) {
     case Electrolyte.sodiumChloride:
-      molecule = Molecule.sodiumChloride;
-      break;
     case Electrolyte.sodiumCitrate:
-      molecule = Molecule.sodiumCitrate;
-      break;
     case Electrolyte.potassiumChloride:
-      molecule = Molecule.potassiumChloride;
-      break;
     case Electrolyte.potassiumCitrate:
-      molecule = Molecule.potassiumCitrate;
-      break;
     case Electrolyte.magnesiumChloride:
-      molecule = Molecule.magnesiumChloride;
-      break;
     case Electrolyte.magnesiumCitrate:
-      molecule = Molecule.magnesiumCitrate;
-      break;
     case Electrolyte.magnesiumMalate:
-      molecule = Molecule.magnesiumMalate;
+      mixture = Mixture.molecule(Mixture[electrolyte.value], mass.value);
       break;
     case Electrolyte.lmnt:
-      bottle.value.electrolytes.push(Mixture.lmnt(mass.value));
-      return;
+      mixture = Mixture.lmnt(mass.value);
+      break;
     default:
       return;
   }
-  bottle.value.electrolytes.push(Mixture.molecule(molecule, mass.value));
+  bottle.value.electrolytes.mixtures.push(mixture);
 };
 </script>

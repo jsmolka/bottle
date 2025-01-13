@@ -19,7 +19,7 @@ export const useBottleStore = defineStore('bottle', () => {
   };
 
   const storageKey = 'bottle';
-  const storageVersion = 1;
+  const storageVersion = 2;
 
   const persist = async () => {
     await set(storageKey, { storageVersion, data: toJson() });

@@ -30,19 +30,19 @@
         </template>
       </CarbohydrateDialog>
     </h1>
-    <Mixtures :mixtures="bottle.carbohydrates" :volume="bottle.volume" />
+    <Solvent :solvent="bottle.carbohydrates" :volume="bottle.volume" />
 
     <div class="flex gap-4">
       <Carbohydrate
         name="Glucose"
-        :mass="glucosePercentage * carbohydrateTotalMass"
+        :mass="glucosePercentage * carbohydrateMass"
         :ratio="glucoseFructoseRatio.glucose"
       >
         <Glucose class="w-full" />
       </Carbohydrate>
       <Carbohydrate
         name="Fructose"
-        :mass="fructosePercentage * carbohydrateTotalMass"
+        :mass="fructosePercentage * carbohydrateMass"
         :ratio="glucoseFructoseRatio.fructose"
       >
         <Fructose class="w-full" />
@@ -59,13 +59,13 @@
         </template>
       </ElectrolyteDialog>
     </h1>
-    <Mixtures :mixtures="bottle.electrolytes" :volume="bottle.volume" />
+    <Solvent :solvent="bottle.electrolytes" :volume="bottle.volume" />
 
     <div class="flex flex-wrap justify-center gap-8 mx-auto">
       <Electrolyte
         v-for="atom of [Atom.sodium, Atom.potassium, Atom.magnesium]"
         :atom="atom"
-        :mass="bottle.electrolytes.molarMassPercentage(atom) * bottle.electrolytes.totalMass"
+        :mass="bottle.electrolytes.molarMassPercentage(atom) * electrolyteMass"
       />
     </div>
 
@@ -131,8 +131,8 @@ import Electrolyte from '@/views/Electrolyte.vue';
 import ElectrolyteDialog from '@/views/ElectrolyteDialog.vue';
 import Fructose from '@/views/Fructose.vue';
 import Glucose from '@/views/Glucose.vue';
-import Mixtures from '@/views/Mixtures.vue';
 import Osmolarities from '@/views/Osmolarities.vue';
+import Solvent from '@/views/Solvent.vue';
 import { PhPlus } from '@phosphor-icons/vue';
 import { useResizeObserver } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
@@ -140,8 +140,12 @@ import { computed, ref, useTemplateRef } from 'vue';
 
 const { bottle } = storeToRefs(useBottleStore());
 
-const carbohydrateTotalMass = computed(() => {
-  return bottle.value.carbohydrates.totalMass;
+const carbohydrateMass = computed(() => {
+  return bottle.value.carbohydrates.mass;
+});
+
+const electrolyteMass = computed(() => {
+  return bottle.value.electrolytes.mass;
 });
 
 const glucosePercentage = computed(() => {

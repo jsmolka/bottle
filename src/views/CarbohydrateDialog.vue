@@ -95,23 +95,17 @@ const add = () => {
   let molecule = null;
   switch (carbohydrate.value) {
     case Carbohydrate.glucose:
-      molecule = Molecule.glucose;
-      break;
     case Carbohydrate.fructose:
-      molecule = Molecule.fructose;
+    case Carbohydrate.sucrose:
+    case Carbohydrate.isomaltulose:
+      molecule = Molecule[carbohydrate.value];
       break;
     case Carbohydrate.maltodextrin:
       molecule = Molecule.maltodextrin(n.value);
       break;
-    case Carbohydrate.sucrose:
-      molecule = Molecule.sucrose;
-      break;
-    case Carbohydrate.isomaltulose:
-      molecule = Molecule.isomaltulose;
-      break;
     default:
       return;
   }
-  bottle.value.carbohydrates.push(Mixture.molecule(molecule, mass.value));
+  bottle.value.carbohydrates.mixtures.push(Mixture.molecule(molecule, mass.value));
 };
 </script>

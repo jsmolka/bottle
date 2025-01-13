@@ -192,7 +192,7 @@ export class Molecule {
     return molarMass;
   }
 
-  // g/l -> Osm/l
+  // Osm/l
   osmolarity(concentration) {
     return (concentration / this.molarMass) * this.osmolesPerMole;
   }
@@ -228,68 +228,6 @@ defineSchema(Substance, {
   ratio: primitive(),
 });
 
-export class Substances extends Array {
-  get totalRatio() {
-    let ratio = 0;
-    for (const substance of this) {
-      ratio += substance.ratio;
-    }
-    return ratio;
-  }
-
-  // g/mol
-  get molarMass() {
-    let molarMass = 0;
-    for (const substance of this) {
-      molarMass += substance.ratio * substance.molecule.molarMass;
-    }
-    const totalRatio = this.totalRatio;
-    return totalRatio > 0 ? molarMass / totalRatio : 0;
-  }
-
-  // Osm/mol
-  get osmolesPerMole() {
-    let osmolesPerMole = 0;
-    for (const substance of this) {
-      osmolesPerMole += substance.ratio * substance.molecule.osmolesPerMole;
-    }
-    const totalRatio = this.totalRatio;
-    return totalRatio > 0 ? osmolesPerMole / totalRatio : 0;
-  }
-
-  // g/l -> Osm/l
-  osmolarity(concentration) {
-    return (concentration / this.molarMass) * this.osmolesPerMole;
-  }
-
-  molarMassPercentage(atom) {
-    let molarMass = 0;
-    for (const substance of this) {
-      molarMass += substance.ratio * substance.molecule.molarMassPercentage(atom);
-    }
-    const totalRatio = this.totalRatio;
-    return totalRatio > 0 ? molarMass / totalRatio : 0;
-  }
-
-  get glucosePercentage() {
-    let percentage = 0;
-    for (const substance of this) {
-      percentage += substance.ratio * substance.molecule.glucosePercentage;
-    }
-    const totalRatio = this.totalRatio;
-    return totalRatio > 0 ? percentage / totalRatio : 0;
-  }
-
-  get fructosePercentage() {
-    let percentage = 0;
-    for (const substance of this) {
-      percentage += substance.ratio * substance.molecule.fructosePercentage;
-    }
-    const totalRatio = this.totalRatio;
-    return totalRatio > 0 ? percentage / totalRatio : 0;
-  }
-}
-
 export class Mixture {
   constructor(name, substances, mass) {
     this.name = name;
@@ -298,69 +236,96 @@ export class Mixture {
   }
 
   static molecule(molecule, mass) {
-    return new Mixture(molecule.name, Substances.of(new Substance(molecule, 1)), mass);
+    return new Mixture(molecule.name, [new Substance(molecule, 1)], mass);
   }
 
   static lmnt(mass) {
     return new Mixture(
       'LMNT',
-      Substances.of(
+      [
         new Substance(Molecule.sodiumChloride, 1000),
         new Substance(Molecule.potassiumChloride, 150),
         new Substance(Molecule.magnesiumMalate, 150),
-      ),
+      ],
       mass,
     );
   }
 
-  // l -> g/l
+  get ratio() {
+    let ratio = 0;
+    for (const substance of this.substances) {
+      ratio += substance.ratio;
+    }
+    return ratio;
+  }
+
   concentration(volume) {
     return this.mass / volume;
   }
 
-  // l -> Osm/l
   osmolarity(volume) {
-    return this.substances.osmolarity(this.concentration(volume));
+    let osmolarity = 0;
+    for (const substance of this.substances) {
+      osmolarity += substance.ratio * substance.molecule.osmolarity(this.concentration(volume));
+    }
+    return osmolarity / this.ratio;
+  }
+
+  molarMassPercentage(atom) {
+    let percentage = 0;
+    for (const substance of this.substances) {
+      percentage += substance.ratio * substance.molecule.molarMassPercentage(atom);
+    }
+    return percentage / this.ratio;
+  }
+
+  get glucosePercentage() {
+    let percentage = 0;
+    for (const substance of this.substances) {
+      percentage += substance.ratio * substance.molecule.glucosePercentage;
+    }
+    return percentage / this.ratio;
+  }
+
+  get fructosePercentage() {
+    let percentage = 0;
+    for (const substance of this.substances) {
+      percentage += substance.ratio * substance.molecule.fructosePercentage;
+    }
+    return percentage / this.ratio;
   }
 }
 
 defineSchema(Mixture, {
   name: primitive(),
-  substances: array(schema(Substance), Substances),
+  substances: array(schema(Substance)),
   mass: primitive(),
 });
 
-export class Mixtures extends Array {
-  get totalMass() {
+export class Solvent {
+  constructor(mixtures) {
+    this.mixtures = mixtures;
+  }
+
+  get mass() {
     let mass = 0;
-    for (const mixture of this) {
+    for (const mixture of this.mixtures) {
       mass += mixture.mass;
     }
     return mass;
   }
 
-  get molarMass() {
-    let molarMass = 0;
-    for (const mixture of this) {
-      molarMass += mixture.mass * mixture.substances.molarMass;
-    }
-    const totalMass = this.totalMass;
-    return totalMass > 0 ? molarMass / totalMass : 0;
-  }
-
-  // l -> g/l
-  totalConcentration(volume) {
+  concentration(volume) {
     let concentration = 0;
-    for (const mixture of this) {
+    for (const mixture of this.mixtures) {
       concentration += mixture.concentration(volume);
     }
     return concentration;
   }
 
-  // l -> Osm/l
-  totalOsmolarity(volume) {
+  osmolarity(volume) {
     let osmolarity = 0;
-    for (const mixture of this) {
+    for (const mixture of this.mixtures) {
       osmolarity += mixture.osmolarity(volume);
     }
     return osmolarity;
@@ -368,28 +333,49 @@ export class Mixtures extends Array {
 
   molarMassPercentage(atom) {
     let percentage = 0;
-    for (const mixture of this) {
-      percentage += mixture.mass * mixture.substances.molarMassPercentage(atom);
+    for (const mixture of this.mixtures) {
+      percentage += mixture.mass * mixture.molarMassPercentage(atom);
     }
-    const totalMass = this.totalMass;
-    return totalMass > 0 ? percentage / totalMass : 0;
+    return percentage / this.mass || 0;
   }
 
   get glucosePercentage() {
     let percentage = 0;
-    for (const mixture of this) {
-      percentage += mixture.mass * mixture.substances.glucosePercentage;
+    for (const mixture of this.mixtures) {
+      percentage += mixture.mass * mixture.glucosePercentage;
     }
-    const totalMass = this.totalMass;
-    return totalMass > 0 ? percentage / totalMass : 0;
+    return percentage / this.mass || 0;
   }
 
   get fructosePercentage() {
     let percentage = 0;
-    for (const mixture of this) {
-      percentage += mixture.mass * mixture.substances.fructosePercentage;
+    for (const mixture of this.mixtures) {
+      percentage += mixture.mass * mixture.fructosePercentage;
     }
-    const totalMass = this.totalMass;
-    return totalMass > 0 ? percentage / totalMass : 0;
+    return percentage / this.mass || 0;
   }
 }
+
+defineSchema(Solvent, {
+  mixtures: array(schema(Mixture)),
+});
+
+export class Solution {
+  constructor(volume, solvents) {
+    this.volume = volume; // l
+    this.solvents = solvents;
+  }
+
+  get osmolarity() {
+    let osmolarity = 0;
+    for (const solvent of this.solvents) {
+      osmolarity += solvent.osmolarity(this.volume);
+    }
+    return osmolarity;
+  }
+}
+
+defineSchema(Solution, {
+  volume: primitive(),
+  solvents: array(schema(Solvent)),
+});

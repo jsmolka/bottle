@@ -1,6 +1,6 @@
 <template>
   <TableWrapper>
-    <Table class="font-feature-tnum">
+    <Table>
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>

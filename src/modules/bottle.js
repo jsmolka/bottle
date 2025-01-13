@@ -1,27 +1,28 @@
-import { Mixture, Mixtures, Molecule } from '@/modules/chemistry';
-import { array, defineSchema, primitive, schema } from '@/utils/persist';
+import { Mixture, Molecule, Solution, Solvent } from '@/modules/chemistry';
+import { defineSchema } from '@/utils/persist';
 
-export class Bottle {
+export class Bottle extends Solution {
   constructor() {
-    this.volume = 1; // l
-    this.carbohydrates = Mixtures.of(
+    const carbohydrates = new Solvent([
       Mixture.molecule(Molecule.maltodextrin(5), 60),
       Mixture.molecule(Molecule.fructose, 30),
-    );
-    this.electrolytes = Mixtures.of(Mixture.molecule(Molecule.sodiumChloride, 4));
+    ]);
+
+    // prettier-ignore
+    const electrolytes = new Solvent([
+      Mixture.molecule(Molecule.sodiumChloride, 4),
+    ]);
+
+    super(1, [carbohydrates, electrolytes]);
   }
 
-  get osmolarity() {
-    let osmolarity = 0;
-    for (const mixtures of [this.carbohydrates, this.electrolytes]) {
-      osmolarity += mixtures.totalOsmolarity(this.volume);
-    }
-    return osmolarity;
+  get carbohydrates() {
+    return this.solvents[0];
+  }
+
+  get electrolytes() {
+    return this.solvents[1];
   }
 }
 
-defineSchema(Bottle, {
-  volume: primitive(),
-  carbohydrates: array(schema(Mixture), Mixtures),
-  electrolytes: array(schema(Mixture), Mixtures),
-});
+defineSchema(Bottle, {});

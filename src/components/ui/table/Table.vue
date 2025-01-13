@@ -1,5 +1,5 @@
 <template>
-  <table :class="cn('w-full', props.class)">
+  <table :class="cn('w-full font-feature-tnum', props.class)">
     <slot />
   </table>
 </template>
