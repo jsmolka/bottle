@@ -8,6 +8,7 @@
         props.class,
       )
     "
+    :tabindex="tabindex"
   >
     <slot />
   </Primitive>
@@ -21,5 +22,6 @@ const props = defineProps({
   as: { default: 'a' },
   asChild: { type: Boolean, required: false },
   class: { required: false },
+  tabindex: { default: -1 },
 });
 </script>
