@@ -4,8 +4,12 @@
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
-          <TableHead class="text-right">Osmolality</TableHead>
-          <TableHead class="text-right hidden sm:table-cell">Density</TableHead>
+          <TableHead class="text-right">
+            <Link :href="osmolarityPdf">Osmolality</Link>
+          </TableHead>
+          <TableHead class="text-right hidden sm:table-cell">
+            <Link href="https://kg-m3.com">Density</Link>
+          </TableHead>
           <TableHead class="text-right">Osmolarity</TableHead>
         </TableRow>
       </TableHeader>
@@ -26,6 +30,8 @@
 </template>
 
 <script setup>
+import osmolarityPdf from '@/assets/pdf/osmolality.pdf';
+import { Link } from '@/components/ui/link';
 import {
   Table,
   TableBody,

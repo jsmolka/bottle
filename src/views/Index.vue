@@ -110,18 +110,11 @@
         <text x="100%" y="84" text-anchor="end">>600</text>
       </g>
     </svg>
-    <figure class="flex flex-col gap-2">
-      <Osmolarities />
-      <figcaption class="text-xs text-center">
-        Based on a <Link :href="osmolarityPdf">study by Mettler et al.</Link> and
-        <Link href="https://kg-m3.com">density</Link>
-      </figcaption>
-    </figure>
+    <Osmolarities />
   </Form>
 </template>
 
 <script setup>
-import osmolarityPdf from '@/assets/pdf/osmolality.pdf';
 import Logo from '@/components/Logo.vue';
 import { Button } from '@/components/ui/button';
 import { Form, FormItem } from '@/components/ui/form';
