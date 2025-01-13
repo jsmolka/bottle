@@ -19,16 +19,19 @@ export const useBottleStore = defineStore('bottle', () => {
   };
 
   const storageKey = 'bottle';
+  const storageVersion = 1;
 
   const persist = async () => {
-    await set(storageKey, toJson());
+    await set(storageKey, { storageVersion, data: toJson() });
   };
 
   const { ignoreUpdates } = watchIgnorable(bottle, persist, { deep: true });
 
   const hydrate = async () => {
     const data = await get(storageKey);
-    ignoreUpdates(() => fromJson(data));
+    if (data != null && data.storageVersion === storageVersion) {
+      ignoreUpdates(() => fromJson(data.data));
+    }
   };
 
   return { bottle, toJson, fromJson, persist, hydrate };
