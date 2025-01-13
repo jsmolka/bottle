@@ -18,7 +18,7 @@
           <TableCell>{{ item.name }}</TableCell>
           <TableCell class="text-right">{{ format(item.osmolality) }} mOsm/kg</TableCell>
           <TableCell class="text-right hidden sm:table-cell">
-            {{ format(item.density, { minDigits: 3, maxDigits: 3 }) }} kg/l
+            {{ format(item.density, { minDigits: 2, maxDigits: 2 }) }} kg/l
           </TableCell>
           <TableCell class="text-right">
             {{ format(item.osmolality * item.density) }} mOsm/l
