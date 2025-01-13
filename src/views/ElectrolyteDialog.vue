@@ -52,7 +52,7 @@ import { Form, FormItem } from '@/components/ui/form';
 import { InputNumber } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectItemText } from '@/components/ui/select';
-import { Mixture } from '@/modules/chemistry';
+import { Mixture, Molecule } from '@/modules/chemistry';
 import { useBottleStore } from '@/stores/bottle';
 import { Enum } from '@/utils/enum';
 import { storeToRefs } from 'pinia';
@@ -102,7 +102,7 @@ const add = () => {
     case Electrolyte.magnesiumChloride:
     case Electrolyte.magnesiumCitrate:
     case Electrolyte.magnesiumMalate:
-      mixture = Mixture.molecule(Mixture[electrolyte.value], mass.value);
+      mixture = Mixture.molecule(Molecule[electrolyte.value], mass.value);
       break;
     case Electrolyte.lmnt:
       mixture = Mixture.lmnt(mass.value);
