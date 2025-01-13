@@ -60,6 +60,26 @@ export class Molecule {
     this.fructosePercentage = options.fructosePercentage;
   }
 
+  static glucose = new Molecule(
+    'Glucose',
+    [
+      new Atoms(Atom.carbon, 6),
+      new Atoms(Atom.hydrogen, 12),
+      new Atoms(Atom.oxygen, 6),
+    ], // prettier-ignore
+    { glucosePercentage: 1 },
+  );
+
+  static fructose = new Molecule(
+    'Fructose',
+    [
+      new Atoms(Atom.carbon, 6),
+      new Atoms(Atom.hydrogen, 12),
+      new Atoms(Atom.oxygen, 6),
+    ], // prettier-ignore
+    { fructosePercentage: 1 },
+  );
+
   static maltodextrin(n) {
     return new Molecule(
       `Maltodextrin (n = ${n})`,
@@ -71,16 +91,6 @@ export class Molecule {
       { glucosePercentage: 1 },
     );
   }
-
-  static fructose = new Molecule(
-    'Fructose',
-    [
-      new Atoms(Atom.carbon, 6),
-      new Atoms(Atom.hydrogen, 12),
-      new Atoms(Atom.oxygen, 6),
-    ], // prettier-ignore
-    { fructosePercentage: 1 },
-  );
 
   static sucrose = new Molecule(
     'Sucrose',

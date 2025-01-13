@@ -72,8 +72,9 @@ const { bottle } = storeToRefs(useBottleStore());
  * @property {string} isomaltulose
  */
 const Carbohydrate = new Enum([
-  { key: 'maltodextrin', translation: 'Maltodextrin' },
+  { key: 'glucose', translation: 'Glucose' },
   { key: 'fructose', translation: 'Fructose' },
+  { key: 'maltodextrin', translation: 'Maltodextrin' },
   { key: 'sucrose', translation: 'Sucrose' },
   { key: 'isomaltulose', translation: 'Isomaltulose' },
 ]);
@@ -83,7 +84,7 @@ const n = ref();
 const mass = ref();
 
 const reset = () => {
-  carbohydrate.value = Carbohydrate.maltodextrin;
+  carbohydrate.value = Carbohydrate.glucose;
   n.value = 5;
   mass.value = 50;
 };
@@ -93,11 +94,14 @@ reset();
 const add = () => {
   let molecule = null;
   switch (carbohydrate.value) {
-    case Carbohydrate.maltodextrin:
-      molecule = Molecule.maltodextrin(n.value);
+    case Carbohydrate.glucose:
+      molecule = Molecule.glucose;
       break;
     case Carbohydrate.fructose:
       molecule = Molecule.fructose;
+      break;
+    case Carbohydrate.maltodextrin:
+      molecule = Molecule.maltodextrin(n.value);
       break;
     case Carbohydrate.sucrose:
       molecule = Molecule.sucrose;
