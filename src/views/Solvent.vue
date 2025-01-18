@@ -29,7 +29,7 @@
           <TableCell class="text-right hidden sm:table-cell">
             {{ format(mixture.concentration(volume)) }} g/l
           </TableCell>
-          <TableCell class="text-right">
+          <TableCell class="text-right" :title="title(mixture)">
             {{ format(1000 * mixture.osmolarity(volume)) }} mOsm/l
           </TableCell>
           <TableCell>
@@ -77,8 +77,29 @@ import { Solvent } from '@/modules/chemistry';
 import { format } from '@/utils/format';
 import { PhTrash } from '@phosphor-icons/vue';
 
-defineProps({
+const props = defineProps({
   solvent: { type: Solvent, required: true },
   volume: { type: Number, required: true },
 });
+
+const title = (mixture) => {
+  const lines = [];
+  const ratio = mixture.ratio;
+  for (const substance of mixture.substances) {
+    const factor = substance.ratio / ratio;
+    const concentration = factor * mixture.concentration(props.volume);
+    lines.push(
+      [
+        `${substance.molecule.name}:`,
+        `${format(factor * mixture.mass, { maxDigits: 2 })} g ÷`,
+        `${format(props.volume, { maxDigits: 2 })} l ÷`,
+        `${format(substance.molecule.molarMass, { maxDigits: 2 })} g/mol ×`,
+        `${format(substance.molecule.osmolesPerMole, { maxDigits: 2 })} ×`,
+        `1000 =`,
+        `${format(1000 * substance.molecule.osmolarity(concentration), { maxDigits: 2 })} mOsm/l`,
+      ].join(' '),
+    );
+  }
+  return lines.join('\n');
+};
 </script>
