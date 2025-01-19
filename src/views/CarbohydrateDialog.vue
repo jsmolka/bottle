@@ -19,10 +19,16 @@
             </template>
           </Select>
         </FormItem>
-        <FormItem v-if="carbohydrate === Carbohydrate.maltodextrin">
-          <Label>Glucose units n [3, 19]</Label>
-          <InputNumber v-model="n" :min="3" :max="19" />
-        </FormItem>
+        <template v-if="carbohydrate === Carbohydrate.maltodextrin">
+          <FormItem>
+            <Label>Glucose units [3, 19]</Label>
+            <InputNumber v-model="n" :min="3" :max="19" />
+          </FormItem>
+          <FormItem>
+            <Label>Dextrose equivalent [3, 20]</Label>
+            <InputNumber :model-value="Math.round(100 * dextroseEquivalent)" suffix=" %" disabled />
+          </FormItem>
+        </template>
         <FormItem>
           <Label>Mass</Label>
           <InputNumber v-model="mass" :min="0" :max="1000" suffix=" g" />
@@ -60,7 +66,7 @@ import { Mixture, Molecule } from '@/modules/chemistry';
 import { useBottleStore } from '@/stores/bottle';
 import { Enum } from '@/utils/enum';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const { bottle } = storeToRefs(useBottleStore());
 
@@ -90,6 +96,10 @@ const reset = () => {
 };
 
 reset();
+
+const dextroseEquivalent = computed(() => {
+  return Molecule.glucose.molarMass / Molecule.maltodextrin(n.value).molarMass;
+});
 
 const add = () => {
   let molecule = null;
