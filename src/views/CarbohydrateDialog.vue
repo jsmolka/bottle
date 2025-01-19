@@ -91,7 +91,7 @@ const mass = ref();
 
 const reset = () => {
   carbohydrate.value = Carbohydrate.glucose;
-  n.value = 5;
+  n.value = 10;
   mass.value = 50;
 };
 
