@@ -42,6 +42,7 @@ import {
   TableWrapper,
 } from '@/components/ui/table';
 import { format } from '@/utils/format';
+import { makeNumericComparer } from '@/utils/sorting';
 
 // https://kg-m3.com
 const density = {
@@ -51,13 +52,13 @@ const density = {
 };
 
 const data = [
-  { name: 'Coke', osmolality: 493, density: density.softDrink },
-  { name: 'Fanta', osmolality: 415, density: density.softDrink },
-  { name: 'Fruit juice', osmolality: 724, density: density.fruitJuice },
-  { name: 'Gatorade', osmolality: 353, density: density.sportsDrink },
   { name: 'Isostar', osmolality: 312, density: density.sportsDrink },
+  { name: 'Gatorade', osmolality: 353, density: density.sportsDrink },
   { name: 'Powerade', osmolality: 368, density: density.sportsDrink },
-  { name: 'Red Bull', osmolality: 601, density: density.softDrink },
+  { name: 'Fanta', osmolality: 415, density: density.softDrink },
   { name: 'Sprite', osmolality: 479, density: density.softDrink },
-];
+  { name: 'Coke', osmolality: 493, density: density.softDrink },
+  { name: 'Red Bull', osmolality: 601, density: density.softDrink },
+  { name: 'Fruit juice', osmolality: 724, density: density.fruitJuice },
+].sort(makeNumericComparer(({ osmolality, density }) => osmolality / density));
 </script>
