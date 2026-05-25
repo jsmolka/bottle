@@ -79,15 +79,15 @@
       <g>
         <defs>
           <linearGradient id="osmolarity-gradient">
-            <stop offset="0%" stop-color="rgb(var(--red))" />
-            <stop offset="13.33%" stop-color="rgb(var(--red))" />
-            <stop offset="20%" stop-color="rgb(var(--yellow))" />
-            <stop offset="30%" stop-color="rgb(var(--yellow))" />
-            <stop offset="36.66%" stop-color="rgb(var(--green))" />
-            <stop offset="63.33%" stop-color="rgb(var(--green))" />
-            <stop offset="70%" stop-color="rgb(var(--yellow))" />
-            <stop offset="80%" stop-color="rgb(var(--yellow))" />
-            <stop offset="86.66%" stop-color="rgb(var(--red))" />
+            <stop offset="0%" stop-color="var(--color-red)" />
+            <stop offset="13.33%" stop-color="var(--color-red)" />
+            <stop offset="20%" stop-color="var(--color-yellow)" />
+            <stop offset="30%" stop-color="var(--color-yellow)" />
+            <stop offset="36.66%" stop-color="var(--color-green)" />
+            <stop offset="63.33%" stop-color="var(--color-green)" />
+            <stop offset="70%" stop-color="var(--color-yellow)" />
+            <stop offset="80%" stop-color="var(--color-yellow)" />
+            <stop offset="86.66%" stop-color="var(--color-red)" />
           </linearGradient>
         </defs>
         <rect x="0%" y="24" width="100%" height="40" fill="url(#osmolarity-gradient)" />
@@ -185,6 +185,8 @@ const osmolarityX = computed(() => {
 </script>
 
 <style scoped>
+@reference '@/main.css';
+
 h1 {
   @apply -mb-2;
   @apply text-base;
